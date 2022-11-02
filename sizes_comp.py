@@ -718,4 +718,4 @@ def plot_weighted_gas_size_mass_vary(snap):
 
 # Run the plotting scripts
 if __name__ == "__main__":
-    plot_hmr_phys_comp_grid("010_z005p00")
+    plot_hmr_phys_comp_grid("010_z005p000")
