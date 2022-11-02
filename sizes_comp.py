@@ -100,7 +100,8 @@ def plot_hmr_phys_comp_grid(snap):
               "z_{\mathrm{reion}}=7.5", "z_{\mathrm{reion}}=14.0"]
 
     # Define linestyles
-    linestyles = ["-", "-", "--", "--", "--", "dotted", "dotted"]
+    linestyles = ["-", "-", "--", "--", "--", "dotted", "dotted", "dotted",
+                  "dashdot", "dashdot", "dashdot"]
 
     # Define plot grid shape
     nrows = 3
@@ -117,6 +118,7 @@ def plot_hmr_phys_comp_grid(snap):
         while j < ncols:
             axes[i, j] = fig.add_subplot(gs[i, j])
             axes[i, j].loglog()
+            axes[i, j].grid(True)
             if j > 0:
                 axes[i, j].tick_params(axis='y', left=False, right=False,
                                        labelleft=False, labelright=False)
@@ -229,7 +231,7 @@ def plot_hmr_phys_comp_grid(snap):
 
     axes[-1, 1].legend(loc='upper center',
                        bbox_to_anchor=(0.5, -0.2),
-                       fancybox=True, ncol=7)
+                       fancybox=True, ncol=6)
 
     # Save figure
     mkdir("plots/physics_vary/")
