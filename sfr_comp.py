@@ -21,17 +21,21 @@ def plot_sfr_evo_comp(snap):
     path = "/cosma/home/dp004/dc-rope1/FLARES/FLARES-1/<type>/data/"
 
     # Define physics variations directories
-    types = ["G-EAGLE_00", "FLARES_00_REF", "FLARES_00_highFBlim",
+    types = ["flares_00", "FLARES_00_REF", "FLARES_00_highFBlim",
              "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
-             "FLARES_00_instantFB", "FLARES_00_noZSFthresh"]
+             "FLARES_00_instantFB", "FLARES_00_noZSFthresh",
+             "flares_00_no_agn", "flares_00_H_reion_z03",
+             "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
 
     # Define labels for each
     labels = ["AGNdT9", "REF", "$f_{\mathrm{th, max}}=10$",
               "$f_{\mathrm{th, max}}=6$", "$f_{\mathrm{th, max}}=4$",
-              "InstantFB", "$Z^0$"]
+              "InstantFB", "$Z^0$", "$M_\dot=0$", "$z_{\mathrm{reion}}=3.0$",
+              "$z_{\mathrm{reion}}=7.5$", "$z_{\mathrm{reion}}=14.0$"]
 
     # Define linestyles
-    linestyles = ["-", "-", "--", "--", "--", "dotted", "dotted"]
+    linestyles = ["-", "-", "--", "--", "--", "dotted", "dotted", "dotted",
+                  "dashdot", "dashdot", "dashdot"]
 
     # Define z bins
     flares_age_bins = np.arange(cosmo.age(5).value, cosmo.age(30).value, -0.1)
@@ -44,6 +48,7 @@ def plot_sfr_evo_comp(snap):
     # Set up the plot
     fig = plt.figure(figsize=(3.5, 3.5))
     ax = fig.add_subplot(111)
+    ax.grid(True)
 
     # Log the y axis
     ax.loglog()
@@ -52,6 +57,7 @@ def plot_sfr_evo_comp(snap):
     fig = plt.figure(figsize=(3.5, 3.5))
     ax = fig.add_subplot(111)
     ax.semilogy()
+    ax.grid(True)
 
     # Loop over the variants
     for t, l, ls in zip(types, labels, linestyles):
@@ -84,8 +90,8 @@ def plot_sfr_evo_comp(snap):
               fancybox=True, ncol=3)
 
     # Save figure
-    mkdir("plots/physics_vary/")
-    fig.savefig("plots/physics_vary/sfr_evo.png",
+    mkdir("plots/sfr/")
+    fig.savefig("plots/sfr/sfr_evo.png",
                 bbox_inches="tight")
 
 
@@ -102,20 +108,26 @@ def plot_ssfr_mass_vary(snap):
     ini_path = "/cosma/home/dp004/dc-rope1/FLARES/FLARES-1/<type>/data/"
 
     # Define physics variations directories
-    types = ["flares_00", "FLARES_00_REF",
+    types = ["flares_00", "FLARES_00_REF", "FLARES_00_highFBlim",
+             "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
              "FLARES_00_instantFB", "FLARES_00_noZSFthresh",
-             "FLARES_00_slightFBlim", "FLARES_00_medFBlim",
-             "FLARES_00_highFBlim"]
+             "flares_00_no_agn", "flares_00_H_reion_z03",
+             "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
 
     # Define labels for each
     labels = ["AGNdT9", "REF", "SKIP",
-              "InstantFB", "$Z^0$", "SKIP",
+              "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
               "$f_{\mathrm{th, max}}=4$",
-              "$f_{\mathrm{th, max}}=6$",
-              "$f_{\mathrm{th, max}}=10$"]
+              "InstantFB", "$Z^0$", "$M_\dot=0$",
+              "$z_{\mathrm{reion}}=3.0$", "$z_{\mathrm{reion}}=7.5$",
+              "$z_{\mathrm{reion}}=14.0$"]
+
+    # Define linestyles
+    linestyles = ["-", "-", "--", "--", "--", "dotted", "dotted", "dotted",
+                  "dashdot", "dashdot", "dashdot"]
 
     # Define plot dimensions
-    nrows = 3
+    nrows = 4
     ncols = 3
 
     # Define norm
@@ -324,8 +336,14 @@ def plot_ssfr_mass_vary(snap):
     cbar1.set_label("$N$")
 
     # Save figure
-    mkdir("plots/physics_vary/")
-    fig.savefig("plots/physics_vary/sfr_mass_%s.png" % snap,
+    mkdir("plots/sfr/")
+    fig.savefig("plots/sfr/sfr_mass_%s.png" % snap,
                 bbox_inches="tight")
-    fig1.savefig("plots/physics_vary/sfr_hmr_%s.png" % snap,
+    fig1.savefig("plots/sfr/sfr_hmr_%s.png" % snap,
                  bbox_inches="tight")
+
+
+if __name__ == "__main__":
+    snap = "010_z005p000"
+    plot_sfr_evo_comp(snap)
+    plot_ssfr_mass_vary(snap)
