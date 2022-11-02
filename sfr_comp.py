@@ -139,12 +139,12 @@ def plot_ssfr_mass_vary(snap):
     norm = LogNorm(vmin=1, vmax=10)
 
     # Define hexbin extent
-    extent = [8, 11.5, -3, 1.5]
-    extent1 = [-1.5, 1.5, 7, 12]
+    extent = [8, 11.5, -2, 1.5]
+    extent1 = [-1.5, 1.5 - 2, 1.5]
 
     # Set up the plots
-    fig = plt.figure(figsize=(nrows * 3.5, ncols * 3.5))
-    fig1 = plt.figure(figsize=(nrows * 3.5, ncols * 3.5))
+    fig = plt.figure(figsize=(nrows * 3.7, ncols * 3.5))
+    fig1 = plt.figure(figsize=(nrows * 3.7, ncols * 3.5))
     gs = gridspec.GridSpec(nrows=nrows, ncols=ncols + 1,
                            width_ratios=[20, ] * ncols + [1, ])
     gs.update(wspace=0.0, hspace=0.0)
@@ -152,7 +152,7 @@ def plot_ssfr_mass_vary(snap):
                             width_ratios=[20, ] * ncols + [1, ])
     gs1.update(wspace=0.0, hspace=0.0)
     axes = []
-    cax = fig.add_subplot(gs[-1, -1])
+    cax = fig.add_subplot(gs[1:, -1])
     axes1 = []
     cax1 = fig1.add_subplot(gs1[1:, -1])
 
