@@ -143,8 +143,8 @@ def plot_ssfr_mass_vary(snap):
     extent1 = [-1.5, 1.5 - 2, 1.5]
 
     # Set up the plots
-    fig = plt.figure(figsize=(nrows * 3.7, ncols * 3.5))
-    fig1 = plt.figure(figsize=(nrows * 3.7, ncols * 3.5))
+    fig = plt.figure(figsize=(ncols * 3.5, nrows * 3.5))
+    fig1 = plt.figure(figsize=(ncols * 3.5, nrows * 3.5))
     gs = gridspec.GridSpec(nrows=nrows, ncols=ncols + 1,
                            width_ratios=[20, ] * ncols + [1, ])
     gs.update(wspace=0.0, hspace=0.0)
