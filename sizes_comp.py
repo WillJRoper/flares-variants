@@ -87,7 +87,7 @@ def plot_hmr_phys_comp_grid(snap):
     path = "/cosma/home/dp004/dc-rope1/FLARES/FLARES-1/<type>/data/"
 
     # Define physics variations directories
-    types = ["G-EAGLE_00", "FLARES_00_REF", "FLARES_00_highFBlim",
+    types = ["flares_00", "FLARES_00_REF", "FLARES_00_highFBlim",
              "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
              "FLARES_00_instantFB", "FLARES_00_noZSFthresh",
              "flares_00_no_agn", "flares_00_H_reion_z03",
