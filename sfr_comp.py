@@ -86,7 +86,7 @@ def plot_sfr_evo_comp(snap):
         ax.plot(plt_zs, sfrs / vol, label=l, ls=ls)
 
     ax.set_ylabel(
-        r"$\mathrm{SFR}_{100} / [\mathrm{M}_\odot\mathrm{Myr}^{-1} \mathrm{cMpc}^{-3}]$")
+        r"$\phi / [\mathrm{M}_\odot\mathrm{Myr}^{-1} \mathrm{cMpc}^{-3}]$")
     ax.set_xlabel(r"$z$")
 
     ax.legend(loc='upper center',
