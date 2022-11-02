@@ -108,10 +108,11 @@ def plot_ssfr_mass_vary(snap):
     ini_path = "/cosma/home/dp004/dc-rope1/FLARES/FLARES-1/<type>/data/"
 
     # Define physics variations directories
-    types = ["flares_00", "FLARES_00_REF", "FLARES_00_highFBlim",
-             "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
+    types = ["flares_00", "FLARES_00_REF",
              "FLARES_00_instantFB", "FLARES_00_noZSFthresh",
-             "flares_00_no_agn", "flares_00_H_reion_z03",
+             "flares_00_no_agn", "FLARES_00_highFBlim",
+             "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
+             "flares_00_H_reion_z03",
              "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
 
     # Define labels for each
@@ -134,7 +135,7 @@ def plot_ssfr_mass_vary(snap):
     norm = LogNorm(vmin=1, vmax=10)
 
     # Define hexbin extent
-    extent = [8, 11.5, 7, 12]
+    extent = [8, 11.5, -3, 1.5]
     extent1 = [-1.5, 1.5, 7, 12]
 
     # Set up the plots
@@ -149,7 +150,7 @@ def plot_ssfr_mass_vary(snap):
     axes = []
     cax = fig.add_subplot(gs[-1, -1])
     axes1 = []
-    cax1 = fig1.add_subplot(gs1[-1, -1])
+    cax1 = fig1.add_subplot(gs1[1:, -1])
 
     for i in range(nrows):
         for j in range(ncols):
@@ -163,11 +164,13 @@ def plot_ssfr_mass_vary(snap):
             # Create axis
             ax = fig.add_subplot(gs[i, j])
             ax1 = fig1.add_subplot(gs1[i, j])
+            ax.grid(True)
+            ax1.grid(True)
 
             # Include labels
             if j == 0:
-                ax.set_ylabel(r"$\mathrm{SFR} / [M_\odot\mathrm{Gyr}^{-1}]$")
-                ax1.set_ylabel(r"$\mathrm{SFR} / [M_\odot\mathrm{Gyr}^{-1}]$")
+                ax.set_ylabel(r"$\mathrm{sSFR} / [\mathrm{Gyr}^{-1}]$")
+                ax1.set_ylabel(r"$\mathrm{sSFR} / [\mathrm{Gyr}^{-1}]$")
             if i == nrows - 1:
                 ax.set_xlabel(r"$M_\star / M_\odot$")
                 ax1.set_xlabel(r"$R_{1/2} / [\mathrm{pkpc}]$")
@@ -317,8 +320,9 @@ def plot_ssfr_mass_vary(snap):
             plt_hmrs.append(hmr)
 
         # Convert to arrays
-        ssfrs = np.array(ssfrs)
+        sfrs = np.array(ssfrs)
         ms = np.array(ms)
+        ssfrs = sfrs / ms
         plt_hmrs = np.array(plt_hmrs)
         okinds = ssfrs > 0
 
