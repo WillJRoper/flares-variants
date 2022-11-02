@@ -17,6 +17,9 @@ import cmasher as cmr
 
 def plot_sfr_evo_comp(snap):
 
+    # Define volume
+    vol = 4 / 3 * np.pi * 15 ** 3
+
     # Define the path
     path = "/cosma/home/dp004/dc-rope1/FLARES/FLARES-1/<type>/data/"
 
@@ -79,10 +82,11 @@ def plot_sfr_evo_comp(snap):
             sfrs.append(np.sum(ms[zokinds]) * 10**10 / 100)  # M_sun / Myr
             plt_zs.append(z_low)
 
-        ax.plot(plt_zs, sfrs, label=l, ls=ls)
+        sfrs = np.array(sfrs)
+        ax.plot(plt_zs, sfrs / vol, label=l, ls=ls)
 
     ax.set_ylabel(
-        r"$\mathrm{SFR}_{100} / [\mathrm{M}_\odot\mathrm{Myr}^{-1}]$")
+        r"$\mathrm{SFR}_{100} / [\mathrm{M}_\odot\mathrm{Myr}^{-1} \mathrm{cMpc}^{-3}]$")
     ax.set_xlabel(r"$z$")
 
     ax.legend(loc='upper center',
