@@ -89,12 +89,15 @@ def plot_hmr_phys_comp_grid(snap):
     # Define physics variations directories
     types = ["G-EAGLE_00", "FLARES_00_REF", "FLARES_00_highFBlim",
              "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
-             "FLARES_00_instantFB", "FLARES_00_noZSFthresh"]
+             "FLARES_00_instantFB", "FLARES_00_noZSFthresh",
+             "flares_00_no_agn", "flares_00_H_reion_z03",
+             "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
 
     # Define labels for each
     labels = ["AGNdT9", "REF", "$f_{\mathrm{th, max}}=10$",
               "$f_{\mathrm{th, max}}=6$", "$f_{\mathrm{th, max}}=4$",
-              "InstantFB", "$Z^0$"]
+              "InstantFB", "$Z^0$", "M_\bullet", "z_{\mathrm{reion}}=3.0",
+              "z_{\mathrm{reion}}=7.5", "z_{\mathrm{reion}}=14.0"]
 
     # Define linestyles
     linestyles = ["-", "-", "--", "--", "--", "dotted", "dotted"]
@@ -711,3 +714,8 @@ def plot_weighted_gas_size_mass_vary(snap):
                 bbox_inches="tight")
     fig1.savefig("plots/physics_vary/weight_gas_hmr_ratio_mass%s.png" % snap,
                  bbox_inches="tight")
+
+
+# Run the plotting scripts
+if __name__ == "__main__":
+    plot_hmr_phys_comp_grid("010_z005p00")
