@@ -483,7 +483,7 @@ def plot_birth_den_vary(snap):
         reg_dens = (reg_dens * 10**10
                     * Msun / Mpc ** 3 / mh).to(1 / cm ** 3).value
 
-        im = axes[ind].hexbin(reg_zs, reg_dens, mincnt=0, gridsize=30,
+        im = axes[ind].hexbin(reg_zs, reg_dens, mincnt=0, gridsize=20,
                               yscale="log", linewidth=0.2, cmap="plasma",
                               extent=extent)
 
@@ -508,7 +508,7 @@ def plot_birth_den_vary(snap):
               "$z_{\mathrm{reion}}=14.0$"]
 
     # Set up the plot
-    fig = plt.figure(figsize=(len(labels) * 0.75, len(labels) * 0.75))
+    fig = plt.figure(figsize=(len(labels) * 1.0, len(labels) * 1.0))
     gs = gridspec.GridSpec(nrows=len(labels) + 1, ncols=len(labels) + 1,
                            width_ratios=[20, ] * len(labels) + [1, ],
                            height_ratios=[1, ] + [20, ] * len(labels))
@@ -548,7 +548,7 @@ def plot_birth_den_vary(snap):
                         transform=ax.transAxes, verticalalignment='center',
                         rotation=90)
             if i == len(labels) - 1:
-                ax.text(0.5, -0.75, labels[j],
+                ax.text(0.5, -1.0, labels[j],
                         transform=ax.transAxes, horizontalalignment='center')
 
             axes[i, j] = ax
@@ -715,7 +715,7 @@ def plot_birth_denmet_vary(snap):
 
             im = plt.hexbin(reg_dens[okinds],
                             reg_mets[okinds],
-                            gridsize=30, linewidth=0.2,
+                            gridsize=20, linewidth=0.2,
                             xscale="log",
                             cmap="coolwarm",
                             extent=extent)
@@ -736,7 +736,7 @@ def plot_birth_denmet_vary(snap):
     for zi in range(len(zbins) - 1):
 
         # Set up the plot
-        fig = plt.figure(figsize=(len(labels) * 0.75, len(labels) * 0.75))
+        fig = plt.figure(figsize=(len(labels) * 1.0, len(labels) * 1.0))
         gs = gridspec.GridSpec(nrows=len(labels) + 1, ncols=len(labels) + 1,
                                width_ratios=[20, ] * len(labels) + [1, ],
                                height_ratios=[1, ] + [20, ] * len(labels))
@@ -776,7 +776,7 @@ def plot_birth_denmet_vary(snap):
                             transform=ax.transAxes, verticalalignment='center',
                             rotation=90)
                 if i == len(labels) - 1:
-                    ax.text(0.5, -0.75, labels[j],
+                    ax.text(0.5, -1.0, labels[j],
                             transform=ax.transAxes, horizontalalignment='center')
 
                 axes[i, j] = ax
