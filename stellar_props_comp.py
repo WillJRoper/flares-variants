@@ -366,7 +366,7 @@ def plot_birth_met_vary(snap):
 
                 im1 = axes[i, j].hexbin(hex_dict[ti]["zs"],
                                         hex_dict[ti]["mets"],
-                                        gridsize=30, linewidth=0.2,
+                                        gridsize=20, linewidth=0.2,
                                         cmap="cmr.guppy",
                                         extent=extent, alpha=0.2)
                 im1.set_array(bkg_arr)
@@ -557,7 +557,7 @@ def plot_birth_den_vary(snap):
                 im = axes[i, j].hexbin(hex_dict[ti]["zs"],
                                        hex_dict[ti]["dens"],
                                        yscale="log",
-                                       mincnt=0, gridsize=30, linewidth=0.2,
+                                       mincnt=0, gridsize=20, linewidth=0.2,
                                        norm=norm,  cmap="plasma", extent=extent)
 
                 # Set up colorbar
@@ -566,7 +566,7 @@ def plot_birth_den_vary(snap):
             else:
                 im = axes[i, j].hexbin(hex_dict[ti]["zs"],
                                        hex_dict[ti]["dens"],
-                                       gridsize=30, linewidth=0.2,
+                                       gridsize=20, linewidth=0.2,
                                        yscale="log",
                                        cmap="cmr.guppy",
                                        extent=extent)
@@ -587,7 +587,7 @@ def plot_birth_den_vary(snap):
 
                 im1 = axes[i, j].hexbin(hex_dict[ti]["zs"],
                                         hex_dict[ti]["dens"],
-                                        gridsize=30, linewidth=0.2,
+                                        gridsize=20, linewidth=0.2,
                                         yscale="log",
                                         cmap="cmr.guppy", norm=outlier_norm,
                                         extent=extent, alpha=0.2)
@@ -793,7 +793,7 @@ def plot_birth_denmet_vary(snap):
 
                     im = axes[i, j].hexbin(dens[okinds],
                                            mets[okinds],
-                                           mincnt=0, gridsize=30,
+                                           mincnt=0, gridsize=20,
                                            linewidth=0.2, norm=norm,
                                            xscale="log",
                                            cmap="plasma",
@@ -814,7 +814,7 @@ def plot_birth_denmet_vary(snap):
                         dens > 0)
 
                     im = axes[i, j].hexbin(dens[okinds], mets[okinds],
-                                           gridsize=30, linewidth=0.2,
+                                           gridsize=20, linewidth=0.2,
                                            xscale="log",
                                            cmap="cmr.guppy",
                                            extent=extent)
@@ -836,7 +836,7 @@ def plot_birth_denmet_vary(snap):
                     im1 = axes[i, j].hexbin(dens[okinds],
                                             mets[okinds],
                                             xscale="log",
-                                            gridsize=30, linewidth=0.2,
+                                            gridsize=20, linewidth=0.2,
                                             cmap="cmr.guppy", norm=outlier_norm,
                                             extent=extent, alpha=0.2)
                     im1.set_array(bkg_arr)
