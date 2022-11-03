@@ -1,6 +1,7 @@
 import h5py
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 from matplotlib.colors import LogNorm, TwoSlopeNorm
 import matplotlib.gridspec as gridspec
 import eagle_IO.eagle_IO as eagle_io
@@ -15,6 +16,10 @@ from scipy.spatial import cKDTree
 import cmasher as cmr
 
 
+# Turn on grid
+mpl.rcParams.update({"axes.grid": True})
+
+
 def plot_birth_density_evo():
 
     flares_z_bins = np.arange(4.5, 15.5, 1.0)
@@ -22,18 +27,28 @@ def plot_birth_density_evo():
     # Define the path
     path = "/cosma/home/dp004/dc-rope1/FLARES/FLARES-1/<type>/data/"
 
-    # Define physics variations directories
-    types = ["G-EAGLE_00", "FLARES_00_REF", "FLARES_00_highFBlim",
+   # Define physics variations directories
+    types = ["flares_00", "FLARES_00_REF",
+             "FLARES_00_instantFB", "FLARES_00_noZSFthresh",
+             "flares_00_no_agn", "FLARES_00_highFBlim",
              "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
-             "FLARES_00_instantFB", "FLARES_00_noZSFthresh"]
+             "flares_00_H_reion_z03",
+             "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
+    types = types[::-1]
 
-    # Define physics variations directories
-    labels = ["AGNdT9", "REF", "$f_{\mathrm{th, max}}=10$",
-              "$f_{\mathrm{th, max}}=6$", "$f_{\mathrm{th, max}}=4$",
-              "InstantFB", "$Z^0$"]
+    # Define labels for each
+    labels = ["AGNdT9", "REF",
+              "InstantFB", "$Z^0$", "$M_\dot=0$",
+              "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
+              "$f_{\mathrm{th, max}}=4$",
+              "$z_{\mathrm{reion}}=3.0$", "$z_{\mathrm{reion}}=7.5$",
+              "$z_{\mathrm{reion}}=14.0$"]
+    labels = labels[::-1]
 
     # Define linestyles
-    linestyles = ["-", "-", "--", "--", "--", "dotted", "dotted"]
+    linestyles = ["-", "-", "--", "--", "--", "dotted", "dotted", "dotted",
+                  "dashdot", "dashdot", "dashdot"]
+    linestyles = linestyles[::-1]
 
     # Define snapshot for the root
     snap = "011_z004p770"
@@ -88,18 +103,28 @@ def plot_birth_met_evo():
     # Define the path
     path = "/cosma/home/dp004/dc-rope1/FLARES/FLARES-1/<type>/data/"
 
-    # Define physics variations directories
-    types = ["G-EAGLE_00", "FLARES_00_REF", "FLARES_00_highFBlim",
+   # Define physics variations directories
+    types = ["flares_00", "FLARES_00_REF",
+             "FLARES_00_instantFB", "FLARES_00_noZSFthresh",
+             "flares_00_no_agn", "FLARES_00_highFBlim",
              "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
-             "FLARES_00_instantFB", "FLARES_00_noZSFthresh"]
+             "flares_00_H_reion_z03",
+             "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
+    types = types[::-1]
 
     # Define labels for each
-    labels = ["AGNdT9", "REF", "$f_{\mathrm{th, max}}=10$",
-              "$f_{\mathrm{th, max}}=6$", "$f_{\mathrm{th, max}}=4$",
-              "InstantFB", "$Z^{0}$"]
+    labels = ["AGNdT9", "REF",
+              "InstantFB", "$Z^0$", "$M_\dot=0$",
+              "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
+              "$f_{\mathrm{th, max}}=4$",
+              "$z_{\mathrm{reion}}=3.0$", "$z_{\mathrm{reion}}=7.5$",
+              "$z_{\mathrm{reion}}=14.0$"]
+    labels = labels[::-1]
 
     # Define linestyles
-    linestyles = ["-", "-", "--", "--", "--", "dotted", "dotted"]
+    linestyles = ["-", "-", "--", "--", "--", "dotted", "dotted", "dotted",
+                  "dashdot", "dashdot", "dashdot"]
+    linestyles = linestyles[::-1]
 
     # Define snapshot for the root
     snap = "011_z004p770"
@@ -146,7 +171,7 @@ def plot_birth_met_evo():
                 bbox_inches="tight")
 
 
-def plot_birth_met_vary(stellar_data, snap, path):
+def plot_birth_met_vary(snap):
 
     # Define the path
     ini_path = "/cosma/home/dp004/dc-rope1/FLARES/FLARES-1/<type>/data/"
@@ -154,17 +179,21 @@ def plot_birth_met_vary(stellar_data, snap, path):
     # Define physics variations directories
     types = ["flares_00", "FLARES_00_REF",
              "FLARES_00_instantFB", "FLARES_00_noZSFthresh",
-             "FLARES_00_slightFBlim", "FLARES_00_medFBlim",
-             "FLARES_00_highFBlim"]
+             "flares_00_no_agn", "FLARES_00_highFBlim",
+             "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
+             "flares_00_H_reion_z03",
+             "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
 
     # Define labels for each
     labels = ["AGNdT9", "REF", "SKIP",
-              "InstantFB", "$Z^0$", "SKIP",
-              "$f_{\mathrm{th, max}}=4$", "$f_{\mathrm{th, max}}=6$",
-              "$f_{\mathrm{th, max}}=10$"]
+              "InstantFB", "$Z^0$", "$M_\dot=0$",
+              "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
+              "$f_{\mathrm{th, max}}=4$",
+              "$z_{\mathrm{reion}}=3.0$", "$z_{\mathrm{reion}}=7.5$",
+              "$z_{\mathrm{reion}}=14.0$"]
 
     # Define plot dimensions
-    nrows = 3
+    nrows = 4
     ncols = 3
 
     # Define norm
@@ -176,7 +205,7 @@ def plot_birth_met_vary(stellar_data, snap, path):
     extent = [4.6, 25, 0, 0.119]
 
     # Set up the plot
-    fig = plt.figure(figsize=(nrows * 3.5, ncols * 3.5))
+    fig = plt.figure(figsize=(ncols * 3.5, nrows * 3.5))
     gs = gridspec.GridSpec(nrows=nrows, ncols=ncols + 1,
                            width_ratios=[20, ] * ncols + [1, ])
     gs.update(wspace=0.0, hspace=0.0)
@@ -250,11 +279,13 @@ def plot_birth_met_vary(stellar_data, snap, path):
                 bbox_inches="tight")
     plt.close(fig)
 
-    # Redefine labels for each
-    labels = ["AGNdT9", "REF",
-              "InstantFB", "$Z^0$",
-              "$f_{\mathrm{th, max}}=4$", "$f_{\mathrm{th, max}}=6$",
-              "$f_{\mathrm{th, max}}=10$"]
+    # Define labels for each
+    labels = ["AGNdT9", "REF", "SKIP",
+              "InstantFB", "$Z^0$", "$M_\dot=0$",
+              "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
+              "$f_{\mathrm{th, max}}=4$",
+              "$z_{\mathrm{reion}}=3.0$", "$z_{\mathrm{reion}}=7.5$",
+              "$z_{\mathrm{reion}}=14.0$"]
 
     # Set up the plot
     fig = plt.figure(figsize=(len(labels) * 2.5, len(labels) * 2.5))
@@ -355,7 +386,7 @@ def plot_birth_met_vary(stellar_data, snap, path):
     plt.close(fig)
 
 
-def plot_birth_den_vary(stellar_data, snap, path):
+def plot_birth_den_vary(snap):
 
     # Define the path
     ini_path = "/cosma/home/dp004/dc-rope1/FLARES/FLARES-1/<type>/data/"
@@ -363,17 +394,21 @@ def plot_birth_den_vary(stellar_data, snap, path):
     # Define physics variations directories
     types = ["flares_00", "FLARES_00_REF",
              "FLARES_00_instantFB", "FLARES_00_noZSFthresh",
-             "FLARES_00_slightFBlim", "FLARES_00_medFBlim",
-             "FLARES_00_highFBlim"]
+             "flares_00_no_agn", "FLARES_00_highFBlim",
+             "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
+             "flares_00_H_reion_z03",
+             "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
 
     # Define labels for each
     labels = ["AGNdT9", "REF", "SKIP",
-              "InstantFB", "$Z^0$", "SKIP",
-              "$f_{\mathrm{th, max}}=4$", "$f_{\mathrm{th, max}}=6$",
-              "$f_{\mathrm{th, max}}=10$"]
+              "InstantFB", "$Z^0$", "$M_\dot=0$",
+              "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
+              "$f_{\mathrm{th, max}}=4$",
+              "$z_{\mathrm{reion}}=3.0$", "$z_{\mathrm{reion}}=7.5$",
+              "$z_{\mathrm{reion}}=14.0$"]
 
     # Define plot dimensions
-    nrows = 3
+    nrows = 4
     ncols = 3
 
     # Define norm
@@ -385,7 +420,7 @@ def plot_birth_den_vary(stellar_data, snap, path):
     extent = [4.6, 22, -2.2, 5.5]
 
     # Set up the plot
-    fig = plt.figure(figsize=(nrows * 3.5, ncols * 3.5))
+    fig = plt.figure(figsize=(ncols * 3.5, nrows * 3.5))
     gs = gridspec.GridSpec(nrows=nrows, ncols=ncols + 1,
                            width_ratios=[20, ] * ncols + [1, ])
     gs.update(wspace=0.0, hspace=0.0)
@@ -464,11 +499,13 @@ def plot_birth_den_vary(stellar_data, snap, path):
                 bbox_inches="tight")
     plt.close(fig)
 
-    # Redefine labels for each
+    # Define labels for each
     labels = ["AGNdT9", "REF",
-              "InstantFB", "$Z^0$",
-              "$f_{\mathrm{th, max}}=4$", "$f_{\mathrm{th, max}}=6$",
-              "$f_{\mathrm{th, max}}=10$"]
+              "InstantFB", "$Z^0$", "$M_\dot=0$",
+              "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
+              "$f_{\mathrm{th, max}}=4$",
+              "$z_{\mathrm{reion}}=3.0$", "$z_{\mathrm{reion}}=7.5$",
+              "$z_{\mathrm{reion}}=14.0$"]
 
     # Set up the plot
     fig = plt.figure(figsize=(len(labels) * 2.5, len(labels) * 2.5))
@@ -572,7 +609,7 @@ def plot_birth_den_vary(stellar_data, snap, path):
     plt.close(fig)
 
 
-def plot_birth_denmet_vary(snap, path):
+def plot_birth_denmet_vary(snap):
 
     # Define redshift bins
     zbins = list(np.arange(5, 12.5, 2.5))
@@ -616,14 +653,18 @@ def plot_birth_denmet_vary(snap, path):
     # Define physics variations directories
     types = ["flares_00", "FLARES_00_REF",
              "FLARES_00_instantFB", "FLARES_00_noZSFthresh",
-             "FLARES_00_slightFBlim", "FLARES_00_medFBlim",
-             "FLARES_00_highFBlim"]
+             "flares_00_no_agn", "FLARES_00_highFBlim",
+             "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
+             "flares_00_H_reion_z03",
+             "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
 
     # Define labels for each
     labels = ["AGNdT9", "REF", "SKIP",
-              "InstantFB", "$Z^0$", "SKIP",
-              "$f_{\mathrm{th, max}}=4$", "$f_{\mathrm{th, max}}=6$",
-              "$f_{\mathrm{th, max}}=10$"]
+              "InstantFB", "$Z^0$", "$M_\dot=0$",
+              "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
+              "$f_{\mathrm{th, max}}=4$",
+              "$z_{\mathrm{reion}}=3.0$", "$z_{\mathrm{reion}}=7.5$",
+              "$z_{\mathrm{reion}}=14.0$"]
 
     # Define plot dimensions
     nrows = 3
@@ -682,11 +723,13 @@ def plot_birth_denmet_vary(snap, path):
 
             hex_dict[t]["h_%.2f" % zbins[zi]] = im.get_array()
 
-    # Redefine labels for each
+    # Define labels for each
     labels = ["AGNdT9", "REF",
-              "InstantFB", "$Z^0$",
-              "$f_{\mathrm{th, max}}=4$", "$f_{\mathrm{th, max}}=6$",
-              "$f_{\mathrm{th, max}}=10$"]
+              "InstantFB", "$Z^0$", "$M_\dot=0$",
+              "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
+              "$f_{\mathrm{th, max}}=4$",
+              "$z_{\mathrm{reion}}=3.0$", "$z_{\mathrm{reion}}=7.5$",
+              "$z_{\mathrm{reion}}=14.0$"]
 
     plt.close()
 
@@ -817,3 +860,11 @@ def plot_birth_denmet_vary(snap, path):
         fig.savefig(spath.replace(".", "p"),
                     bbox_inches="tight")
         plt.close(fig)
+
+
+if __name__ == "__main__":
+    plot_birth_met_evo()
+    plot_birth_density_evo()
+    plot_birth_met_vary("010_z005p000")
+    plot_birth_den_vary("010_z005p000")
+    plot_birth_denmet_vary("010_z005p000")

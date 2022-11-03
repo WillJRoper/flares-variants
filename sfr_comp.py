@@ -24,21 +24,27 @@ def plot_sfr_evo_comp(snap):
     path = "/cosma/home/dp004/dc-rope1/FLARES/FLARES-1/<type>/data/"
 
     # Define physics variations directories
-    types = ["flares_00", "FLARES_00_REF", "FLARES_00_highFBlim",
-             "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
+    types = ["flares_00", "FLARES_00_REF",
              "FLARES_00_instantFB", "FLARES_00_noZSFthresh",
-             "flares_00_no_agn", "flares_00_H_reion_z03",
+             "flares_00_no_agn", "FLARES_00_highFBlim",
+             "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
+             "flares_00_H_reion_z03",
              "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
+    types = types[::-1]
 
     # Define labels for each
-    labels = ["AGNdT9", "REF", "$f_{\mathrm{th, max}}=10$",
-              "$f_{\mathrm{th, max}}=6$", "$f_{\mathrm{th, max}}=4$",
-              "InstantFB", "$Z^0$", "$M_\dot=0$", "$z_{\mathrm{reion}}=3.0$",
-              "$z_{\mathrm{reion}}=7.5$", "$z_{\mathrm{reion}}=14.0$"]
+    labels = ["AGNdT9", "REF",
+              "InstantFB", "$Z^0$", "$M_\dot=0$",
+              "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
+              "$f_{\mathrm{th, max}}=4$",
+              "$z_{\mathrm{reion}}=3.0$", "$z_{\mathrm{reion}}=7.5$",
+              "$z_{\mathrm{reion}}=14.0$"]
+    labels = labels[::-1]
 
     # Define linestyles
     linestyles = ["-", "-", "--", "--", "--", "dotted", "dotted", "dotted",
                   "dashdot", "dashdot", "dashdot"]
+    linestyles = linestyles[::-1]
 
     # Define z bins
     flares_age_bins = np.arange(cosmo.age(5).value, cosmo.age(30).value, -0.1)

@@ -23,21 +23,27 @@ def plot_hmr_phys_comp(snap):
     path = "/cosma/home/dp004/dc-rope1/FLARES/FLARES-1/<type>/data/"
 
     # Define physics variations directories
-    types = ["flares_00", "FLARES_00_REF", "FLARES_00_highFBlim",
-             "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
+    types = ["flares_00", "FLARES_00_REF",
              "FLARES_00_instantFB", "FLARES_00_noZSFthresh",
-             "flares_00_no_agn", "flares_00_H_reion_z03",
+             "flares_00_no_agn", "FLARES_00_highFBlim",
+             "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
+             "flares_00_H_reion_z03",
              "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
+    types = types[::-1]
 
     # Define labels for each
-    labels = ["AGNdT9", "REF", "$f_{\mathrm{th, max}}=10$",
-              "$f_{\mathrm{th, max}}=6$", "$f_{\mathrm{th, max}}=4$",
-              "InstantFB", "$Z^0$", "$M_\dot=0$", "$z_{\mathrm{reion}}=3.0$",
-              "$z_{\mathrm{reion}}=7.5$", "$z_{\mathrm{reion}}=14.0$"]
+    labels = ["AGNdT9", "REF",
+              "InstantFB", "$Z^0$", "$M_\dot=0$",
+              "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
+              "$f_{\mathrm{th, max}}=4$",
+              "$z_{\mathrm{reion}}=3.0$", "$z_{\mathrm{reion}}=7.5$",
+              "$z_{\mathrm{reion}}=14.0$"]
+    labels = labels[::-1]
 
     # Define linestyles
     linestyles = ["-", "-", "--", "--", "--", "dotted", "dotted", "dotted",
                   "dashdot", "dashdot", "dashdot"]
+    linestyles = linestyles[::-1]
 
     # Set up the plot
     fig = plt.figure(figsize=(3.5, 3.5))
@@ -91,21 +97,27 @@ def plot_hmr_phys_comp_grid(snap):
     path = "/cosma/home/dp004/dc-rope1/FLARES/FLARES-1/<type>/data/"
 
     # Define physics variations directories
-    types = ["flares_00", "FLARES_00_REF", "FLARES_00_highFBlim",
-             "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
+    types = ["flares_00", "FLARES_00_REF",
              "FLARES_00_instantFB", "FLARES_00_noZSFthresh",
-             "flares_00_no_agn", "flares_00_H_reion_z03",
+             "flares_00_no_agn", "FLARES_00_highFBlim",
+             "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
+             "flares_00_H_reion_z03",
              "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
+    types = types[::-1]
 
     # Define labels for each
-    labels = ["AGNdT9", "REF", "$f_{\mathrm{th, max}}=10$",
-              "$f_{\mathrm{th, max}}=6$", "$f_{\mathrm{th, max}}=4$",
-              "InstantFB", "$Z^0$", "$M_\dot=0$", "$z_{\mathrm{reion}}=3.0$",
-              "$z_{\mathrm{reion}}=7.5$", "$z_{\mathrm{reion}}=14.0$"]
+    labels = ["AGNdT9", "REF",
+              "InstantFB", "$Z^0$", "$M_\dot=0$",
+              "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
+              "$f_{\mathrm{th, max}}=4$",
+              "$z_{\mathrm{reion}}=3.0$", "$z_{\mathrm{reion}}=7.5$",
+              "$z_{\mathrm{reion}}=14.0$"]
+    labels = labels[::-1]
 
     # Define linestyles
     linestyles = ["-", "-", "--", "--", "--", "dotted", "dotted", "dotted",
                   "dashdot", "dashdot", "dashdot"]
+    linestyles = linestyles[::-1]
 
     # Define plot grid shape
     nrows = 3
@@ -253,21 +265,27 @@ def plot_hmr_phys_comp_grid_1kpc(snap):
     path = "/cosma/home/dp004/dc-rope1/FLARES/FLARES-1/<type>/data/"
 
     # Define physics variations directories
-    types = ["flares_00", "FLARES_00_REF", "FLARES_00_highFBlim",
-             "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
+    types = ["flares_00", "FLARES_00_REF",
              "FLARES_00_instantFB", "FLARES_00_noZSFthresh",
-             "flares_00_no_agn", "flares_00_H_reion_z03",
+             "flares_00_no_agn", "FLARES_00_highFBlim",
+             "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
+             "flares_00_H_reion_z03",
              "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
+    types = types[::-1]
 
     # Define labels for each
-    labels = ["AGNdT9", "REF", "$f_{\mathrm{th, max}}=10$",
-              "$f_{\mathrm{th, max}}=6$", "$f_{\mathrm{th, max}}=4$",
-              "InstantFB", "$Z^0$", "$M_\dot=0$", "$z_{\mathrm{reion}}=3.0$",
-              "$z_{\mathrm{reion}}=7.5$", "$z_{\mathrm{reion}}=14.0$"]
+    labels = ["AGNdT9", "REF",
+              "InstantFB", "$Z^0$", "$M_\dot=0$",
+              "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
+              "$f_{\mathrm{th, max}}=4$",
+              "$z_{\mathrm{reion}}=3.0$", "$z_{\mathrm{reion}}=7.5$",
+              "$z_{\mathrm{reion}}=14.0$"]
+    labels = labels[::-1]
 
     # Define linestyles
     linestyles = ["-", "-", "--", "--", "--", "dotted", "dotted", "dotted",
                   "dashdot", "dashdot", "dashdot"]
+    linestyles = linestyles[::-1]
 
     # Define plot grid shape
     nrows = 3
@@ -480,15 +498,18 @@ def plot_weighted_gas_size_mass_vary(snap):
     # Define physics variations directories
     types = ["flares_00", "FLARES_00_REF",
              "FLARES_00_instantFB", "FLARES_00_noZSFthresh",
-             "FLARES_00_slightFBlim", "FLARES_00_medFBlim",
-             "FLARES_00_highFBlim"]
+             "flares_00_no_agn", "FLARES_00_highFBlim",
+             "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
+             "flares_00_H_reion_z03",
+             "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
 
     # Define labels for each
     labels = ["AGNdT9", "REF", "SKIP",
-              "InstantFB", "$Z^0$", "SKIP",
+              "InstantFB", "$Z^0$", "$M_\dot=0$",
+              "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
               "$f_{\mathrm{th, max}}=4$",
-              "$f_{\mathrm{th, max}}=6$",
-              "$f_{\mathrm{th, max}}=10$"]
+              "$z_{\mathrm{reion}}=3.0$", "$z_{\mathrm{reion}}=7.5$",
+              "$z_{\mathrm{reion}}=14.0$"]
 
     # Define plot dimensions
     nrows = 3
