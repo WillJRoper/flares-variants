@@ -508,7 +508,7 @@ def plot_birth_den_vary(snap):
               "$z_{\mathrm{reion}}=14.0$"]
 
     # Set up the plot
-    fig = plt.figure(figsize=(len(labels) * 2.5, len(labels) * 2.5))
+    fig = plt.figure(figsize=(len(labels) * 1.5, len(labels) * 1.5))
     gs = gridspec.GridSpec(nrows=len(labels) + 1, ncols=len(labels) + 1,
                            width_ratios=[20, ] * len(labels) + [1, ],
                            height_ratios=[1, ] + [20, ] * len(labels))
@@ -737,7 +737,7 @@ def plot_birth_denmet_vary(snap):
     for zi in range(len(zbins) - 1):
 
         # Set up the plot
-        fig = plt.figure(figsize=(len(labels) * 2.5, len(labels) * 2.5))
+        fig = plt.figure(figsize=(len(labels) * 1.5, len(labels) * 1.5))
         gs = gridspec.GridSpec(nrows=len(labels) + 1, ncols=len(labels) + 1,
                                width_ratios=[20, ] * len(labels) + [1, ],
                                height_ratios=[1, ] + [20, ] * len(labels))
