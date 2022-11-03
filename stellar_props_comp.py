@@ -659,7 +659,7 @@ def plot_birth_denmet_vary(snap):
              "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
 
     # Define labels for each
-    labels = ["AGNdT9", "REF", "SKIP",
+    labels = ["AGNdT9", "REF",
               "InstantFB", "$Z^0$", "$M_\dot=0$",
               "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
               "$f_{\mathrm{th, max}}=4$",
