@@ -508,7 +508,7 @@ def plot_birth_den_vary(snap):
               "$z_{\mathrm{reion}}=14.0$"]
 
     # Set up the plot
-    fig = plt.figure(figsize=(len(labels) * 1.5, len(labels) * 1.5))
+    fig = plt.figure(figsize=(len(labels) * 0.75, len(labels) * 0.75))
     gs = gridspec.GridSpec(nrows=len(labels) + 1, ncols=len(labels) + 1,
                            width_ratios=[20, ] * len(labels) + [1, ],
                            height_ratios=[1, ] + [20, ] * len(labels))
@@ -544,13 +544,12 @@ def plot_birth_den_vary(snap):
 
             # Label axis
             if j == 0:
-                ax.text(-0.5, 0.5, labels[i],
+                ax.text(-1.0, 0.5, labels[i],
                         transform=ax.transAxes, verticalalignment='center',
-                        fontsize=12, rotation=90)
+                        rotation=90)
             if i == len(labels) - 1:
-                ax.text(0.5, -0.3, labels[j],
-                        transform=ax.transAxes, horizontalalignment='center',
-                        fontsize=12)
+                ax.text(0.5, -0.75, labels[j],
+                        transform=ax.transAxes, horizontalalignment='center')
 
             axes[i, j] = ax
 
@@ -737,7 +736,7 @@ def plot_birth_denmet_vary(snap):
     for zi in range(len(zbins) - 1):
 
         # Set up the plot
-        fig = plt.figure(figsize=(len(labels) * 1.5, len(labels) * 1.5))
+        fig = plt.figure(figsize=(len(labels) * 0.75, len(labels) * 0.75))
         gs = gridspec.GridSpec(nrows=len(labels) + 1, ncols=len(labels) + 1,
                                width_ratios=[20, ] * len(labels) + [1, ],
                                height_ratios=[1, ] + [20, ] * len(labels))
@@ -773,13 +772,12 @@ def plot_birth_denmet_vary(snap):
 
                 # Label axis
                 if j == 0:
-                    ax.text(-0.5, 0.5, labels[i],
+                    ax.text(-1.0, 0.5, labels[i],
                             transform=ax.transAxes, verticalalignment='center',
-                            fontsize=12, rotation=90)
+                            rotation=90)
                 if i == len(labels) - 1:
-                    ax.text(0.5, -0.3, labels[j],
-                            transform=ax.transAxes, horizontalalignment='center',
-                            fontsize=12)
+                    ax.text(0.5, -0.75, labels[j],
+                            transform=ax.transAxes, horizontalalignment='center')
 
                 axes[i, j] = ax
 
