@@ -480,6 +480,7 @@ def plot_stellarmet_mass_relation_evo_vary():
 
         # Create axis
         ax = fig.add_subplot(gs[j])
+        ax.loglog()
 
         # Include labels
         if j == 0:
@@ -681,6 +682,7 @@ def plot_gasmet_mass_relation_evo_vary():
 
         # Create axis
         ax = fig.add_subplot(gs[j])
+        ax.loglog()
 
         # Include labels
         if j == 0:

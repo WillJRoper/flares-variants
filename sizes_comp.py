@@ -808,6 +808,7 @@ def plot_stellar_size_mass_evo_vary():
 
         # Create axis
         ax = fig.add_subplot(gs[j])
+        ax.loglog()
 
         # Include labels
         if j == 0:
@@ -931,6 +932,7 @@ def plot_gas_size_mass_evo_vary():
 
         # Create axis
         ax = fig.add_subplot(gs[j])
+        ax.loglog()
 
         # Include labels
         if j == 0:
