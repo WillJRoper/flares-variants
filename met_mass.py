@@ -602,16 +602,16 @@ def plot_stellarmet_mass_relation_evo_vary():
                 ms.append(m)
                 mets.append(np.average(this_part_mets, weights=this_ini_mass))
 
-                # Convert to arrays and get mask
-                mets = np.array(mets)
-                ms = np.array(ms)
-                okinds = mets > 0
+            # Convert to arrays and get mask
+            mets = np.array(mets)
+            ms = np.array(ms)
+            okinds = mets > 0
 
-                plot_meidan_stat(ms[okinds], mets[okinds],
-                                 np.ones(mets[okinds].size),
-                                 ax, lab=l,
-                                 color=None, bins=mass_bins,
-                                 ls=linestyles[ind])
+            plot_meidan_stat(ms[okinds], mets[okinds],
+                             np.ones(mets[okinds].size),
+                             ax, lab=l,
+                             color=None, bins=mass_bins,
+                             ls=linestyles[ind])
 
     # Draw legend
     axes[2].legend(loc='upper center',
@@ -803,16 +803,16 @@ def plot_gasmet_mass_relation_evo_vary():
                 ms.append(m)
                 mets.append(np.average(this_part_mets, weights=this_ini_mass))
 
-                # Convert to arrays and get mask
-                mets = np.array(mets)
-                ms = np.array(ms)
-                okinds = mets > 0
+            # Convert to arrays and get mask
+            mets = np.array(mets)
+            ms = np.array(ms)
+            okinds = mets > 0
 
-                plot_meidan_stat(ms[okinds], mets[okinds],
-                                 np.ones(mets[okinds].size),
-                                 ax, lab=l,
-                                 color=None, bins=mass_bins,
-                                 ls=linestyles[ind])
+            plot_meidan_stat(ms[okinds], mets[okinds],
+                             np.ones(mets[okinds].size),
+                             ax, lab=l,
+                             color=None, bins=mass_bins,
+                             ls=linestyles[ind])
 
     # Draw legend
     axes[2].legend(loc='upper center',
