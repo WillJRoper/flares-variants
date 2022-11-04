@@ -548,7 +548,7 @@ def plot_birth_den_vary(snap):
                         transform=ax.transAxes, verticalalignment='center',
                         rotation=90)
             if i == len(labels) - 1:
-                ax.text(0.5, -1.0, labels[j],
+                ax.text(0.5, -0.75, labels[j],
                         transform=ax.transAxes, horizontalalignment='center')
 
             axes[i, j] = ax
@@ -776,7 +776,7 @@ def plot_birth_denmet_vary(snap):
                             transform=ax.transAxes, verticalalignment='center',
                             rotation=90)
                 if i == len(labels) - 1:
-                    ax.text(0.5, -1.0, labels[j],
+                    ax.text(0.5, -0.75, labels[j],
                             transform=ax.transAxes, horizontalalignment='center')
 
                 axes[i, j] = ax
