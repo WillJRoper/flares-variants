@@ -56,7 +56,7 @@ def plot_stellarmet_mass_relation_vary(snap):
     norm = LogNorm(vmin=1, vmax=10)
 
     # Define hexbin extent
-    extent = [8, 11.5, -5, -1]
+    extent = [8, 11.5, -4, -1]
 
     # Set up the plots
     fig = plt.figure(figsize=(ncols * 3.5, nrows * 3.5))
@@ -99,7 +99,7 @@ def plot_stellarmet_mass_relation_vary(snap):
             ax.set_xlim(10**extent[0], 10**extent[1])
 
             # Label axis
-            ax.text(0.95, 0.9, labels[i * ncols + j],
+            ax.text(0.95, 0.1, labels[i * ncols + j],
                     bbox=dict(boxstyle="round,pad=0.3", fc='w', ec="k", lw=1,
                               alpha=0.8),
                     transform=ax.transAxes, horizontalalignment='right',
@@ -257,7 +257,7 @@ def plot_gasmet_mass_relation_vary(snap):
     norm = LogNorm(vmin=1, vmax=10)
 
     # Define hexbin extent
-    extent = [8, 11.5, -5, -1]
+    extent = [8, 11.5, -4, -1]
 
     # Set up the plots
     fig = plt.figure(figsize=(ncols * 3.5, nrows * 3.5))
@@ -300,7 +300,7 @@ def plot_gasmet_mass_relation_vary(snap):
             ax.set_xlim(10**extent[0], 10**extent[1])
 
             # Label axis
-            ax.text(0.95, 0.9, labels[i * ncols + j],
+            ax.text(0.95, 0.1, labels[i * ncols + j],
                     bbox=dict(boxstyle="round,pad=0.3", fc='w', ec="k", lw=1,
                               alpha=0.8),
                     transform=ax.transAxes, horizontalalignment='right',
@@ -463,7 +463,7 @@ def plot_stellarmet_mass_relation_evo_vary():
     norm = LogNorm(vmin=1, vmax=10)
 
     # Define hexbin extent
-    extent = [8, 11.5, -5, -1]
+    extent = [8, 11.5, -4, -1]
 
     # Set up the plots
     fig = plt.figure(figsize=(ncols * 3.5, nrows * 3.5))
@@ -664,7 +664,7 @@ def plot_gasmet_mass_relation_evo_vary():
     norm = LogNorm(vmin=1, vmax=10)
 
     # Define hexbin extent
-    extent = [8, 11.5, -5, -1]
+    extent = [8, 11.5, -4, -1]
 
     # Set up the plots
     fig = plt.figure(figsize=(ncols * 3.5, nrows * 3.5))
