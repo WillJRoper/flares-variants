@@ -106,6 +106,8 @@ def plot_met_mass_relation_vary(snap):
 
         path = ini_path.replace("<type>", t)
 
+        print(path)
+
         mass = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
                                    snap,
                                    "Subhalo/ApertureMeasurements/Mass/030kpc",
@@ -132,3 +134,7 @@ def plot_met_mass_relation_vary(snap):
     mkdir("plots/massmet/")
     fig.savefig("plots/massmet/mass_metallicity_%s.png" % snap,
                 bbox_inches="tight")
+
+
+if __name__ == "__main__":
+    plot_met_mass_relation_vary("010_z005p000")
