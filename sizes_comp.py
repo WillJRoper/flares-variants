@@ -799,7 +799,7 @@ def plot_stellar_size_mass_evo_vary():
                            width_ratios=[20, ] * ncols + [1, ])
     gs.update(wspace=0.0, hspace=0.0)
     axes = []
-    cax = fig.add_subplot(gs[1:, -1])
+    cax = fig.add_subplot(gs[-1])
 
     for j in range(ncols):
 
@@ -919,7 +919,7 @@ def plot_gas_size_mass_evo_vary():
                            width_ratios=[20, ] * ncols + [1, ])
     gs.update(wspace=0.0, hspace=0.0)
     axes = []
-    cax = fig.add_subplot(gs[1:, -1])
+    cax = fig.add_subplot(gs[-1])
 
     for j in range(ncols):
 

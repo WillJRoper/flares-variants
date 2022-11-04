@@ -64,7 +64,7 @@ def plot_stellarmet_mass_relation_vary(snap):
                            width_ratios=[20, ] * ncols + [1, ])
     gs.update(wspace=0.0, hspace=0.0)
     axes = []
-    cax = fig.add_subplot(gs[1:, -1])
+    cax = fig.add_subplot(gs[-1])
 
     for i in range(nrows):
         for j in range(ncols):
@@ -265,7 +265,7 @@ def plot_gasmet_mass_relation_vary(snap):
                            width_ratios=[20, ] * ncols + [1, ])
     gs.update(wspace=0.0, hspace=0.0)
     axes = []
-    cax = fig.add_subplot(gs[1:, -1])
+    cax = fig.add_subplot(gs[-1])
 
     for i in range(nrows):
         for j in range(ncols):
