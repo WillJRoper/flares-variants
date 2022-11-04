@@ -446,6 +446,13 @@ def plot_ssfr_mass_evo_vary():
 
     for ax, snap in zip(axes, snaps):
 
+        # Define redshift
+        z = float(snap.split("z")[-1].replace("p", "."))
+
+        # What redshift was 100 Myrs ago?
+        z_100 = z_at_value(cosmo.age, cosmo.age(z) - (0.1 * u.Gyr),
+                           zmin=0, zmax=50)
+
         for (ind, t), l in zip(enumerate(types), labels):
 
             path = ini_path.replace("<type>", t)
