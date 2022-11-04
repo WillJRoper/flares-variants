@@ -216,3 +216,7 @@ def plot_gsmf_evo_vary():
     mkdir("plots/gsmf/")
     fig.savefig("plots/gsmf/gsmf.png",
                 bbox_inches="tight")
+
+
+if __name__ == "__main__":
+    plot_gsmf_evo_vary()
