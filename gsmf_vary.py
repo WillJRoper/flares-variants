@@ -196,7 +196,7 @@ def plot_gsmf_evo_vary():
             sample_ID = 'flares_gsmf_%s' % (tag)
 
             a = analyse.analyse(ID='samples', model=model,
-                                sample_save_ID=sample_ID, verbose=False)
+                                sample_save_ID=None, verbose=False)
 
             if 'color' in ax._get_lines._prop_keys:
                 c = next(ax._get_lines.prop_cycler)['color']
