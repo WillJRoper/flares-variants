@@ -629,7 +629,7 @@ def plot_sfr_func_vary():
                            width_ratios=[20, ] * ncols + [1, ])
     gs.update(wspace=0.0, hspace=0.0)
     axes = []
-    cax = fig.add_subplot(gs[1:, -1])
+    cax = fig.add_subplot(gs[-1])
 
     for j in range(ncols):
 
