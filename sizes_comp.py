@@ -794,7 +794,7 @@ def plot_stellar_size_mass_evo_vary():
     extent = [8, 11.5, -1.3, 1.5]
 
     # Set up the plots
-    fig = plt.figure(figsize=(ncols * 3.5, nrows * 3.5))
+    fig = plt.figure(figsize=(ncols * 2.5, nrows * 2.5))
     gs = gridspec.GridSpec(nrows=nrows, ncols=ncols + 1,
                            width_ratios=[20, ] * ncols + [1, ])
     gs.update(wspace=0.0, hspace=0.0)
@@ -918,7 +918,7 @@ def plot_gas_size_mass_evo_vary():
     extent = [8, 11.5, 0, 2]
 
     # Set up the plots
-    fig = plt.figure(figsize=(ncols * 3.5, nrows * 3.5))
+    fig = plt.figure(figsize=(ncols * 2.5, nrows * 2.5))
     gs = gridspec.GridSpec(nrows=nrows, ncols=ncols + 1,
                            width_ratios=[20, ] * ncols + [1, ])
     gs.update(wspace=0.0, hspace=0.0)
@@ -937,7 +937,7 @@ def plot_gas_size_mass_evo_vary():
         # Include labels
         if j == 0:
             ax.set_ylabel(r"$R_{\mathrm{gas},1/2} / [\mathrm{pkpc}]$")
-        ax.set_xlabel(r"$M_\star / M_\odot$")
+        ax.set_xlabel(r"$M_\mathrm{gas} / M_\odot$")
 
         # Remove unnecessary ticks
         if j > 0:
@@ -976,7 +976,7 @@ def plot_gas_size_mass_evo_vary():
                                            snap,
                                            "Subhalo/ApertureMeasurements/Mass/030kpc",
                                            noH=True, physicalUnits=True,
-                                           numThreads=8)[:, 4] * 10 ** 10
+                                           numThreads=8)[:, 0] * 10 ** 10
             except ValueError:
                 continue
 

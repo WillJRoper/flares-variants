@@ -37,7 +37,7 @@ def plot_stellarmet_mass_relation_vary(snap):
              "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
 
     # Define labels for each
-    labels = ["AGNdT9", "REF",
+    labels = ["AGNdT9", "REF", "SKIP",
               "InstantFB", "$Z^0$", "$M_\dot=0$",
               "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
               "$f_{\mathrm{th, max}}=4$",
@@ -239,7 +239,7 @@ def plot_gasmet_mass_relation_vary(snap):
              "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
 
     # Define labels for each
-    labels = ["AGNdT9", "REF",
+    labels = ["AGNdT9", "REF", "SKIP",
               "InstantFB", "$Z^0$", "$M_\dot=0$",
               "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
               "$f_{\mathrm{th, max}}=4$",
@@ -440,7 +440,7 @@ def plot_stellarmet_mass_relation_evo_vary():
              "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
 
     # Define labels for each
-    labels = ["AGNdT9", "REF", "SKIP",
+    labels = ["AGNdT9", "REF",
               "InstantFB", "$Z^0$", "$M_\dot=0$",
               "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
               "$f_{\mathrm{th, max}}=4$",
@@ -642,7 +642,7 @@ def plot_gasmet_mass_relation_evo_vary():
              "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
 
     # Define labels for each
-    labels = ["AGNdT9", "REF", "SKIP",
+    labels = ["AGNdT9", "REF",
               "InstantFB", "$Z^0$", "$M_\dot=0$",
               "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
               "$f_{\mathrm{th, max}}=4$",
