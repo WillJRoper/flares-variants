@@ -15,7 +15,7 @@ from scipy.spatial import cKDTree
 import cmasher as cmr
 
 
-def plot_met_mass_relation_vary(snap):
+def plot_stellarmet_mass_relation_vary(snap):
 
     # Define redshift
     z = float(snap.split("z")[-1].replace("p", "."))
@@ -113,16 +113,91 @@ def plot_met_mass_relation_vary(snap):
                                    "Subhalo/ApertureMeasurements/Mass/030kpc",
                                    noH=True, physicalUnits=True,
                                    numThreads=8)[:, 4] * 10 ** 10
-        met = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
-                                  snap,
-                                  "Subhalo/Stars/SmoothedMetallicity",
-                                  noH=True, physicalUnits=True,
-                                  numThreads=8)[:, 4] * 10 ** 3
+        part_mets = eagle_io.read_array("PARTDATA", path.replace("<type>", t),
+                                        snap,
+                                        "PartType4/SmoothedMetallicity",
+                                        noH=True, physicalUnits=True,
+                                        numThreads=8)
+        cops = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
+                                   snap,
+                                   "Subhalo/CentreOfPotential",
+                                   noH=True, physicalUnits=True,
+                                   numThreads=8) * 1000
+        grps = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
+                                   snap,
+                                   "Subhalo/GroupNumber",
+                                   noH=True, physicalUnits=True,
+                                   numThreads=8)
+        subgrps = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
+                                      snap,
+                                      "Subhalo/SubGroupNumber",
+                                      noH=True, physicalUnits=True,
+                                      numThreads=8)
+        ini_mass = eagle_io.read_array("PARTDATA", path.replace("<type>", t),
+                                       snap,
+                                       "PartType4/InitialMass",
+                                       noH=True, physicalUnits=True,
+                                       numThreads=8) * 10 ** 10
+        coords = eagle_io.read_array("PARTDATA", path.replace("<type>", t),
+                                     snap,
+                                     "PartType4/Coordinates",
+                                     noH=True, physicalUnits=True,
+                                     numThreads=8) * 1000
+        part_grps = eagle_io.read_array("PARTDATA", path.replace("<type>", t),
+                                        snap,
+                                        "PartType4/GroupNumber",
+                                        noH=True, physicalUnits=True,
+                                        numThreads=8)
+        part_subgrps = eagle_io.read_array("PARTDATA",
+                                           path.replace("<type>", t),
+                                           snap,
+                                           "PartType4/SubGroupNumber",
+                                           noH=True, physicalUnits=True,
+                                           numThreads=8)
 
         # Apply some cuts
-        okinds = mass > 10**8
+        mokinds = mass > 10**8
+        mass = mass[mokinds]
+        cops = cops[mokinds, :]
+        grps = grps[mokinds]
+        subgrps = subgrps[mokinds]
 
-        im = axes[ind].hexbin(mass[okinds], met[okinds], mincnt=1, gridsize=50,
+        # Set up array to store sfrs
+        mets = []
+        ms = []
+
+        # Loop over galaxies
+        for igal in range(mass.size):
+
+            # Get galaxy data
+            m = mass[igal]
+            cop = cops[igal, :]
+            g = grps[igal]
+            sg = subgrps[igal]
+
+            # Get this galaxies stars
+            sokinds = np.logical_and(part_grps == g, part_subgrps == sg)
+            this_coords = coords[sokinds, :] - cop
+            this_ini_mass = ini_mass[sokinds]
+            this_part_mets = part_mets[sokinds]
+
+            # Compute stellar radii
+            rs = np.sqrt(this_coords[:, 0] ** 2
+                         + this_coords[:, 1] ** 2
+                         + this_coords[:, 2] ** 2)
+
+            # Get only particles within the aperture
+            rokinds = rs < 30
+            this_ini_mass = this_ini_mass[rokinds]
+            this_part_mets = this_part_mets[rokinds]
+
+            # Store values for plotting
+            ms.append(m)
+            mets.append(this_ini_mass * this_part_mets / np.sum(this_ini_mass))
+
+        okinds = mets > 0
+
+        im = axes[ind].hexbin(ms[okinds], mets[okinds], mincnt=1, gridsize=50,
                               xscale="log", yscale="log", linewidth=0.2,
                               cmap="plasma", norm=norm, extent=extent)
 
@@ -137,4 +212,4 @@ def plot_met_mass_relation_vary(snap):
 
 
 if __name__ == "__main__":
-    plot_met_mass_relation_vary("010_z005p000")
+    plot_stellarmet_mass_relation_vary("010_z005p000")
