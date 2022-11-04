@@ -403,7 +403,7 @@ def plot_gasmet_mass_relation_vary(snap):
 
     # Save figure
     mkdir("plots/massmet/")
-    fig.savefig("plots/massmet/mass_stellar_metallicity_%s.png" % snap,
+    fig.savefig("plots/massmet/mass_gas_metallicity_%s.png" % snap,
                 bbox_inches="tight")
 
 
