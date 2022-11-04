@@ -1,6 +1,7 @@
 import h5py
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 from matplotlib.colors import LogNorm, TwoSlopeNorm
 import matplotlib.gridspec as gridspec
 import eagle_IO.eagle_IO as eagle_io
