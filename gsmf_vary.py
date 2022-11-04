@@ -214,5 +214,5 @@ def plot_gsmf_evo_vary():
 
     # Save figure
     mkdir("plots/gsmf/")
-    fig.savefig("plots/gsmf/gsmf`.png",
+    fig.savefig("plots/gsmf/gsmf.png",
                 bbox_inches="tight")

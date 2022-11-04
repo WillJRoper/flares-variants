@@ -458,12 +458,14 @@ def plot_ssfr_mass_evo_vary():
             path = ini_path.replace("<type>", t)
 
             print(path)
-
-            mass = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
-                                       snap,
-                                       "Subhalo/ApertureMeasurements/Mass/030kpc",
-                                       noH=True, physicalUnits=True,
-                                       numThreads=8)[:, 4] * 10 ** 10
+            try:
+                mass = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
+                                           snap,
+                                           "Subhalo/ApertureMeasurements/Mass/030kpc",
+                                           noH=True, physicalUnits=True,
+                                           numThreads=8)[:, 4] * 10 ** 10
+            except ValueError:
+                continue
             hmrs = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
                                        snap,
                                        "Subhalo/HalfMassRad",
