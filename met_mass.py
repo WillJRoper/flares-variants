@@ -198,7 +198,8 @@ def plot_stellarmet_mass_relation_vary(snap):
 
             # Store values for plotting
             ms.append(m)
-            mets.append(this_ini_mass * this_part_mets / np.sum(this_ini_mass))
+            mets.append(
+                np.mean(this_ini_mass * this_part_mets / np.sum(this_ini_mass)))
 
         # Convert to arrays and get mask
         mets = np.array(mets)
@@ -397,7 +398,8 @@ def plot_gasmet_mass_relation_vary(snap):
 
             # Store values for plotting
             ms.append(m)
-            mets.append(this_ini_mass * this_part_mets / np.sum(this_ini_mass))
+            mets.append(
+                np.mean(this_ini_mass * this_part_mets / np.sum(this_ini_mass)))
 
         # Convert to arrays and get mask
         mets = np.array(mets)
