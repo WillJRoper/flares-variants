@@ -751,6 +751,248 @@ def plot_weighted_gas_size_mass_vary(snap):
                  bbox_inches="tight")
 
 
+def plot_stellar_size_mass_evo_vary():
+
+    # Define binning
+    mass_bins = np.logspace(8.0, 13, 30)
+
+    # Define the path
+    ini_path = "/cosma/home/dp004/dc-rope1/FLARES/FLARES-1/<type>/data/"
+
+    # Define physics variations directories
+    types = ["flares_00", "FLARES_00_REF",
+             "FLARES_00_instantFB", "FLARES_00_noZSFthresh",
+             "flares_00_no_agn", "FLARES_00_highFBlim",
+             "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
+             "flares_00_H_reion_z03",
+             "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
+
+    # Define labels for each
+    labels = ["AGNdT9", "REF", "SKIP",
+              "InstantFB", "$Z^0$", "$M_\dot=0$",
+              "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
+              "$f_{\mathrm{th, max}}=4$",
+              "$z_{r, 0}$", "$z_{r, 7.5}$",
+              "$z_{r, 14}$"]
+
+    # Define linestyles
+    linestyles = ["-", "-", "--", "--", "--", "dotted", "dotted", "dotted",
+                  "dashdot", "dashdot", "dashdot"]
+
+    # Define snapshots
+    snaps = ["006_z009p000", "007_z008p000", "008_z007p000",
+             "009_z006p000", "010_z005p000"]
+
+    # Define plot dimensions
+    nrows = 1
+    ncols = len(snaps)
+
+    # Define norm
+    norm = LogNorm(vmin=1, vmax=10)
+
+    # Define hexbin extent
+    extent = [8, 11.5, -1.3, 1.5]
+
+    # Set up the plots
+    fig = plt.figure(figsize=(ncols * 3.5, nrows * 3.5))
+    gs = gridspec.GridSpec(nrows=nrows, ncols=ncols + 1,
+                           width_ratios=[20, ] * ncols + [1, ])
+    gs.update(wspace=0.0, hspace=0.0)
+    axes = []
+    cax = fig.add_subplot(gs[1:, -1])
+
+    for j in range(ncols):
+
+        # Define redshift
+        z = float(snaps[j].split("z")[-1].replace("p", "."))
+
+        # Create axis
+        ax = fig.add_subplot(gs[j])
+
+        # Include labels
+        if j == 0:
+            ax.set_ylabel(r"$R_{\star,1/2} / [\mathrm{pkpc}]$")
+        ax.set_xlabel(r"$M_\star / M_\odot$")
+
+        # Remove unnecessary ticks
+        if j > 0:
+            ax.tick_params("y", left=False, right=False,
+                           labelleft=False, labelright=False)
+
+        # Set axis limits
+        ax.set_ylim(10**extent[2], 10**extent[3])
+        ax.set_xlim(10**extent[0], 10**extent[1])
+
+        # Label axis
+        ax.text(0.95, 0.9, "$z=$%d" % z,
+                bbox=dict(boxstyle="round,pad=0.3", fc='w', ec="k", lw=1,
+                          alpha=0.8),
+                transform=ax.transAxes, horizontalalignment='right',
+                fontsize=8)
+
+        axes.append(ax)
+
+    for ax, snap in zip(axes, snaps):
+
+        for (ind, t), l in zip(enumerate(types), labels):
+
+            path = ini_path.replace("<type>", t)
+
+            print(path)
+
+            # Get the arrays from the raw data files
+            hmr = eagle_io.read_array('SUBFIND', path.replace("<type>", t),
+                                      snap,
+                                      'Subhalo/HalfMassRad',
+                                      noH=True, physicalUnits=True,
+                                      numThreads=8)[:, 4] * 1000
+            mass = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
+                                       snap,
+                                       "Subhalo/ApertureMeasurements/Mass/030kpc",
+                                       noH=True, physicalUnits=True,
+                                       numThreads=8)[:, 4] * 10 ** 10
+
+            okinds = mass > 10 ** 8
+
+            plot_meidan_stat(mass[okinds], hmr[okinds],
+                             np.ones(mass[okinds].size),
+                             ax, lab=l,
+                             color=None, bins=mass_bins,
+                             ls=linestyles[ind])
+
+    # Draw legend
+    axes[2].legend(loc='upper center',
+                   bbox_to_anchor=(0.5, -0.2),
+                   fancybox=True, ncol=3)
+
+    # Save figure
+    mkdir("plots/sizes/")
+    fig.savefig("plots/sizes/stellar_size_mass_evo.png",
+                bbox_inches="tight")
+
+
+def plot_gas_size_mass_evo_vary():
+
+    # Define binning
+    mass_bins = np.logspace(8.0, 13, 30)
+
+    # Define the path
+    ini_path = "/cosma/home/dp004/dc-rope1/FLARES/FLARES-1/<type>/data/"
+
+    # Define physics variations directories
+    types = ["flares_00", "FLARES_00_REF",
+             "FLARES_00_instantFB", "FLARES_00_noZSFthresh",
+             "flares_00_no_agn", "FLARES_00_highFBlim",
+             "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
+             "flares_00_H_reion_z03",
+             "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
+
+    # Define labels for each
+    labels = ["AGNdT9", "REF", "SKIP",
+              "InstantFB", "$Z^0$", "$M_\dot=0$",
+              "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
+              "$f_{\mathrm{th, max}}=4$",
+              "$z_{r, 0}$", "$z_{r, 7.5}$",
+              "$z_{r, 14}$"]
+
+    # Define linestyles
+    linestyles = ["-", "-", "--", "--", "--", "dotted", "dotted", "dotted",
+                  "dashdot", "dashdot", "dashdot"]
+
+    # Define snapshots
+    snaps = ["006_z009p000", "007_z008p000", "008_z007p000",
+             "009_z006p000", "010_z005p000"]
+
+    # Define plot dimensions
+    nrows = 1
+    ncols = len(snaps)
+
+    # Define norm
+    norm = LogNorm(vmin=1, vmax=10)
+
+    # Define hexbin extent
+    extent = [8, 11.5, -1.3, 1.5]
+
+    # Set up the plots
+    fig = plt.figure(figsize=(ncols * 3.5, nrows * 3.5))
+    gs = gridspec.GridSpec(nrows=nrows, ncols=ncols + 1,
+                           width_ratios=[20, ] * ncols + [1, ])
+    gs.update(wspace=0.0, hspace=0.0)
+    axes = []
+    cax = fig.add_subplot(gs[1:, -1])
+
+    for j in range(ncols):
+
+        # Define redshift
+        z = float(snaps[j].split("z")[-1].replace("p", "."))
+
+        # Create axis
+        ax = fig.add_subplot(gs[j])
+
+        # Include labels
+        if j == 0:
+            ax.set_ylabel(r"$R_{\mathrm{gas},1/2} / [\mathrm{pkpc}]$")
+        ax.set_xlabel(r"$M_\star / M_\odot$")
+
+        # Remove unnecessary ticks
+        if j > 0:
+            ax.tick_params("y", left=False, right=False,
+                           labelleft=False, labelright=False)
+
+        # Set axis limits
+        ax.set_ylim(10**extent[2], 10**extent[3])
+        ax.set_xlim(10**extent[0], 10**extent[1])
+
+        # Label axis
+        ax.text(0.95, 0.9, "$z=$%d" % z,
+                bbox=dict(boxstyle="round,pad=0.3", fc='w', ec="k", lw=1,
+                          alpha=0.8),
+                transform=ax.transAxes, horizontalalignment='right',
+                fontsize=8)
+
+        axes.append(ax)
+
+    for ax, snap in zip(axes, snaps):
+
+        for (ind, t), l in zip(enumerate(types), labels):
+
+            path = ini_path.replace("<type>", t)
+
+            print(path)
+
+            # Get the arrays from the raw data files
+            hmr = eagle_io.read_array('SUBFIND', path.replace("<type>", t),
+                                      snap,
+                                      'Subhalo/HalfMassRad',
+                                      noH=True, physicalUnits=True,
+                                      numThreads=8)[:, 0] * 1000
+            mass = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
+                                       snap,
+                                       "Subhalo/ApertureMeasurements/Mass/030kpc",
+                                       noH=True, physicalUnits=True,
+                                       numThreads=8)[:, 4] * 10 ** 10
+
+            okinds = mass > 10 ** 8
+
+            plot_meidan_stat(mass[okinds], hmr[okinds],
+                             np.ones(mass[okinds].size),
+                             ax, lab=l,
+                             color=None, bins=mass_bins,
+                             ls=linestyles[ind])
+
+    # Draw legend
+    axes[2].legend(loc='upper center',
+                   bbox_to_anchor=(0.5, -0.2),
+                   fancybox=True, ncol=3)
+
+    # Save figure
+    mkdir("plots/sizes/")
+    fig.savefig("plots/sizes/gas_size_mass_evo.png",
+                bbox_inches="tight")
+
+
 # Run the plotting scripts
 if __name__ == "__main__":
+    plot_stellar_size_mass_evo_vary()
+    plot_gas_size_mass_evo_vary()
     plot_hmr_phys_comp_grid("010_z005p000")
