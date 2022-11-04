@@ -14,7 +14,6 @@ import astropy.constants as const
 from astropy.cosmology import Planck18 as cosmo, z_at_value
 from scipy.spatial import cKDTree
 import cmasher as cmr
-import flares.flares as fl
 
 import fitDF.fitDF as fitDF
 import fitDF.models as models
@@ -23,6 +22,53 @@ import fitDF.analyse as analyse
 
 # Turn on grid
 mpl.rcParams.update({"axes.grid": True})
+
+
+def plot_df(self, ax, phi, phi_sigma, hist, massBins,
+             label, color, hist_lim=10, lw=3, alpha=0.7, lines=True):
+
+     kwargs = {}
+      kwargs_lo = {}
+
+       if lines:
+            kwargs['lw'] = lw
+
+            kwargs_lo['lw'] = lw
+            kwargs_lo['linestyle'] = 'dotted'
+        else:
+            kwargs['ls'] = ''
+            kwargs['marker'] = 'o'
+
+            kwargs_lo['ls'] = ''
+            kwargs_lo['marker'] = 'o'
+            kwargs_lo['markerfacecolor'] = 'white'
+            kwargs_lo['markeredgecolor'] = color
+
+        def yerr(phi, phi_sigma):
+
+            p = phi
+            ps = phi_sigma
+
+            mask = (ps == p)
+
+            err_up = np.abs(np.log10(p) - np.log10(p + ps))
+            err_lo = np.abs(np.log10(p) - np.log10(p - ps))
+
+            err_lo[mask] = 100
+
+            return err_up, err_lo, mask
+
+        err_up, err_lo, mask = yerr(phi, phi_sigma)
+
+        # err_lo = np.log10(phi) - np.log10(phi - phi_sigma[0])
+        # err_up = np.log10(phi) - np.log10(phi + phi_sigma[1])
+
+        ax.errorbar(np.log10(massBins[phi > 0.]),
+                    np.log10(phi[phi > 0.]),
+                    yerr=[err_lo[phi > 0.],
+                          err_up[phi > 0.]],
+                    # uplims=(mask[phi > 0.]),
+                    label=label, c=color, alpha=alpha, **kwargs)
 
 
 def plot_gsmf_evo_vary():
@@ -154,8 +200,8 @@ def plot_gsmf_evo_vary():
             a = analyse.analyse(ID='samples', model=model,
                                 sample_save_ID=sample_ID, verbose=False)
 
-            fl.plot_df(ax, phi_all, phi_sigma, hist_all,
-                       massBins=massBins, color=c, lines=False, label='', lw=5)
+            plot_df(ax, phi_all, phi_sigma, hist_all,
+                    massBins=massBins, color=c, lines=False, label='', lw=5)
             model.update_params(a.median_fit)
 
             xvals = np.linspace(7, 15, 1000)
