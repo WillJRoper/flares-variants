@@ -56,7 +56,7 @@ def plot_stellarmet_mass_relation_vary(snap):
     norm = LogNorm(vmin=1, vmax=10)
 
     # Define hexbin extent
-    extent = [8, 11.5, -3, 0]
+    extent = [8, 11.5, -5, -1]
 
     # Set up the plots
     fig = plt.figure(figsize=(ncols * 3.5, nrows * 3.5))
@@ -196,6 +196,9 @@ def plot_stellarmet_mass_relation_vary(snap):
             this_ini_mass = this_ini_mass[rokinds]
             this_part_mets = this_part_mets[rokinds]
 
+            if len(this_ini_mass) == 0:
+                continue
+
             # Store values for plotting
             ms.append(m)
             mets.append(np.average(this_part_mets, weights=this_ini_mass))
@@ -254,7 +257,7 @@ def plot_gasmet_mass_relation_vary(snap):
     norm = LogNorm(vmin=1, vmax=10)
 
     # Define hexbin extent
-    extent = [8, 11.5, -3, 0]
+    extent = [8, 11.5, -5, -1]
 
     # Set up the plots
     fig = plt.figure(figsize=(ncols * 3.5, nrows * 3.5))
@@ -394,6 +397,9 @@ def plot_gasmet_mass_relation_vary(snap):
             this_ini_mass = this_ini_mass[rokinds]
             this_part_mets = this_part_mets[rokinds]
 
+            if len(this_ini_mass) == 0:
+                continue
+
             # Store values for plotting
             ms.append(m)
             mets.append(np.average(this_part_mets, weights=this_ini_mass))
@@ -454,7 +460,7 @@ def plot_stellarmet_mass_relation_evo_vary():
     norm = LogNorm(vmin=1, vmax=10)
 
     # Define hexbin extent
-    extent = [8, 11.5, -2, 1.5]
+    extent = [8, 11.5, -5, -1]
 
     # Set up the plots
     fig = plt.figure(figsize=(ncols * 3.5, nrows * 3.5))
@@ -464,149 +470,143 @@ def plot_stellarmet_mass_relation_evo_vary():
     axes = []
     cax = fig.add_subplot(gs[1:, -1])
 
-    for i in range(nrows):
-        for j in range(ncols):
+    for j in range(ncols):
 
-            if i * ncols + j >= len(labels):
-                continue
+        # Define redshift
+        z = float(snaps[j].split("z")[-1].replace("p", "."))
 
-            if labels[i * ncols + j] == "SKIP":
-                continue
+        # Create axis
+        ax = fig.add_subplot(gs[j])
 
-            # Create axis
-            ax = fig.add_subplot(gs[i, j])
-            ax.grid(True)
+        # Include labels
+        if j == 0:
+            ax.set_ylabel(r"$Z_\star$")
+        ax.set_xlabel(r"$M_\star / M_\odot$")
 
-            # Include labels
-            if j == 0:
-                ax.set_ylabel(r"$Z_\star$")
-            if i == nrows - 1:
-                ax.set_xlabel(r"$M_\star / M_\odot$")
+        # Remove unnecessary ticks
+        if j > 0:
+            ax.tick_params("y", left=False, right=False,
+                           labelleft=False, labelright=False)
 
-            # Remove unnecessary ticks
-            if j > 0:
-                ax.tick_params("y", left=False, right=False,
-                               labelleft=False, labelright=False)
+        # Set axis limits
+        ax.set_ylim(10**extent[2], 10**extent[3])
+        ax.set_xlim(10**extent[0], 10**extent[1])
 
-            if i < nrows - 1:
-                ax.tick_params("x", top=False, bottom=False,
-                               labeltop=False, labelbottom=False)
+        # Label axis
+        ax.text(0.95, 0.9, "$z=$%d" % z,
+                bbox=dict(boxstyle="round,pad=0.3", fc='w', ec="k", lw=1,
+                          alpha=0.8),
+                transform=ax.transAxes, horizontalalignment='right',
+                fontsize=8)
 
-            # Set axis limits
-            ax.set_ylim(10**extent[2], 10**extent[3])
-            ax.set_xlim(10**extent[0], 10**extent[1])
+        axes.append(ax)
 
-            # Label axis
-            ax.text(0.95, 0.9, labels[i * ncols + j],
-                    bbox=dict(boxstyle="round,pad=0.3", fc='w', ec="k", lw=1,
-                              alpha=0.8),
-                    transform=ax.transAxes, horizontalalignment='right',
-                    fontsize=8)
+    for ax, snap in zip(axes, snaps):
 
-            axes.append(ax)
+        for (ind, t), l in zip(enumerate(types), labels):
 
-    for (ind, t), l in zip(enumerate(types), labels):
+            path = ini_path.replace("<type>", t)
 
-        path = ini_path.replace("<type>", t)
+            print(path)
 
-        print(path)
-
-        mass = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
-                                   snap,
-                                   "Subhalo/ApertureMeasurements/Mass/030kpc",
-                                   noH=True, physicalUnits=True,
-                                   numThreads=8)[:, 4] * 10 ** 10
-        part_mets = eagle_io.read_array("PARTDATA", path.replace("<type>", t),
-                                        snap,
-                                        "PartType4/SmoothedMetallicity",
-                                        noH=True, physicalUnits=True,
-                                        numThreads=8)
-        cops = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
-                                   snap,
-                                   "Subhalo/CentreOfPotential",
-                                   noH=True, physicalUnits=True,
-                                   numThreads=8) * 1000
-        grps = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
-                                   snap,
-                                   "Subhalo/GroupNumber",
-                                   noH=True, physicalUnits=True,
-                                   numThreads=8)
-        subgrps = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
-                                      snap,
-                                      "Subhalo/SubGroupNumber",
-                                      noH=True, physicalUnits=True,
-                                      numThreads=8)
-        ini_mass = eagle_io.read_array("PARTDATA", path.replace("<type>", t),
+            mass = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
                                        snap,
-                                       "PartType4/InitialMass",
+                                       "Subhalo/ApertureMeasurements/Mass/030kpc",
                                        noH=True, physicalUnits=True,
-                                       numThreads=8) * 10 ** 10
-        coords = eagle_io.read_array("PARTDATA", path.replace("<type>", t),
-                                     snap,
-                                     "PartType4/Coordinates",
-                                     noH=True, physicalUnits=True,
-                                     numThreads=8) * 1000
-        part_grps = eagle_io.read_array("PARTDATA", path.replace("<type>", t),
-                                        snap,
-                                        "PartType4/GroupNumber",
-                                        noH=True, physicalUnits=True,
-                                        numThreads=8)
-        part_subgrps = eagle_io.read_array("PARTDATA",
-                                           path.replace("<type>", t),
+                                       numThreads=8)[:, 4] * 10 ** 10
+            part_mets = eagle_io.read_array("PARTDATA", path.replace("<type>", t),
+                                            snap,
+                                            "PartType4/SmoothedMetallicity",
+                                            noH=True, physicalUnits=True,
+                                            numThreads=8)
+            cops = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
+                                       snap,
+                                       "Subhalo/CentreOfPotential",
+                                       noH=True, physicalUnits=True,
+                                       numThreads=8) * 1000
+            grps = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
+                                       snap,
+                                       "Subhalo/GroupNumber",
+                                       noH=True, physicalUnits=True,
+                                       numThreads=8)
+            subgrps = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
+                                          snap,
+                                          "Subhalo/SubGroupNumber",
+                                          noH=True, physicalUnits=True,
+                                          numThreads=8)
+            ini_mass = eagle_io.read_array("PARTDATA", path.replace("<type>", t),
                                            snap,
-                                           "PartType4/SubGroupNumber",
+                                           "PartType4/InitialMass",
                                            noH=True, physicalUnits=True,
-                                           numThreads=8)
+                                           numThreads=8) * 10 ** 10
+            coords = eagle_io.read_array("PARTDATA", path.replace("<type>", t),
+                                         snap,
+                                         "PartType4/Coordinates",
+                                         noH=True, physicalUnits=True,
+                                         numThreads=8) * 1000
+            part_grps = eagle_io.read_array("PARTDATA", path.replace("<type>", t),
+                                            snap,
+                                            "PartType4/GroupNumber",
+                                            noH=True, physicalUnits=True,
+                                            numThreads=8)
+            part_subgrps = eagle_io.read_array("PARTDATA",
+                                               path.replace("<type>", t),
+                                               snap,
+                                               "PartType4/SubGroupNumber",
+                                               noH=True, physicalUnits=True,
+                                               numThreads=8)
 
-        # Apply some cuts
-        mokinds = mass > 10**8
-        mass = mass[mokinds]
-        cops = cops[mokinds, :]
-        grps = grps[mokinds]
-        subgrps = subgrps[mokinds]
+            # Apply some cuts
+            mokinds = mass > 10**8
+            mass = mass[mokinds]
+            cops = cops[mokinds, :]
+            grps = grps[mokinds]
+            subgrps = subgrps[mokinds]
 
-        # Set up array to store sfrs
-        mets = []
-        ms = []
+            # Set up array to store sfrs
+            mets = []
+            ms = []
 
-        # Loop over galaxies
-        for igal in range(mass.size):
+            # Loop over galaxies
+            for igal in range(mass.size):
 
-            # Get galaxy data
-            m = mass[igal]
-            cop = cops[igal, :]
-            g = grps[igal]
-            sg = subgrps[igal]
+                # Get galaxy data
+                m = mass[igal]
+                cop = cops[igal, :]
+                g = grps[igal]
+                sg = subgrps[igal]
 
-            # Get this galaxies stars
-            sokinds = np.logical_and(part_grps == g, part_subgrps == sg)
-            this_coords = coords[sokinds, :] - cop
-            this_ini_mass = ini_mass[sokinds]
-            this_part_mets = part_mets[sokinds]
+                # Get this galaxies stars
+                sokinds = np.logical_and(part_grps == g, part_subgrps == sg)
+                this_coords = coords[sokinds, :] - cop
+                this_ini_mass = ini_mass[sokinds]
+                this_part_mets = part_mets[sokinds]
 
-            # Compute stellar radii
-            rs = np.sqrt(this_coords[:, 0] ** 2
-                         + this_coords[:, 1] ** 2
-                         + this_coords[:, 2] ** 2)
+                # Compute stellar radii
+                rs = np.sqrt(this_coords[:, 0] ** 2
+                             + this_coords[:, 1] ** 2
+                             + this_coords[:, 2] ** 2)
 
-            # Get only particles within the aperture
-            rokinds = rs < 30
-            this_ini_mass = this_ini_mass[rokinds]
-            this_part_mets = this_part_mets[rokinds]
+                # Get only particles within the aperture
+                rokinds = rs < 30
+                this_ini_mass = this_ini_mass[rokinds]
+                this_part_mets = this_part_mets[rokinds]
 
-            # Store values for plotting
-            ms.append(m)
-            mets.append(
-                np.mean(this_ini_mass * this_part_mets / np.sum(this_ini_mass)))
+                if len(this_ini_mass) == 0:
+                    continue
 
-        # Convert to arrays and get mask
-        mets = np.array(mets)
-        ms = np.array(ms)
-        okinds = mets > 0
+                # Store values for plotting
+                ms.append(m)
+                mets.append(np.average(this_part_mets, weights=this_ini_mass))
 
-        im = axes[ind].hexbin(ms[okinds], mets[okinds], mincnt=1, gridsize=50,
-                              xscale="log", yscale="log", linewidth=0.2,
-                              cmap="plasma", norm=norm, extent=extent)
+                # Convert to arrays and get mask
+                mets = np.array(mets)
+                ms = np.array(ms)
+                okinds = mets > 0
+
+                im = ax.hexbin(ms[okinds], mets[okinds], mincnt=1, gridsize=50,
+                               xscale="log", yscale="log", linewidth=0.2,
+                               cmap="plasma", norm=norm, extent=extent)
 
     # Set up colorbar
     cbar = fig.colorbar(im, cax)
