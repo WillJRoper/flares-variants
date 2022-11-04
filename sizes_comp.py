@@ -283,8 +283,8 @@ def plot_hmr_phys_comp_grid_1kpc(snap):
               "InstantFB", "$Z^0$", "$M_\dot=0$",
               "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
               "$f_{\mathrm{th, max}}=4$",
-              "$z_{\mathrm{reion}}=3.0$", "$z_{\mathrm{reion}}=7.5$",
-              "$z_{\mathrm{reion}}=14.0$"]
+              "$z_{r, 0}$", "$z_{r, 7.5}$",
+              "$z_{r, 14}$"]
     labels = labels[::-1]
 
     # Define linestyles
@@ -513,8 +513,8 @@ def plot_weighted_gas_size_mass_vary(snap):
               "InstantFB", "$Z^0$", "$M_\dot=0$",
               "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
               "$f_{\mathrm{th, max}}=4$",
-              "$z_{\mathrm{reion}}=3.0$", "$z_{\mathrm{reion}}=7.5$",
-              "$z_{\mathrm{reion}}=14.0$"]
+              "$z_{r, 0}$", "$z_{r, 7.5}$",
+              "$z_{r, 14}$"]
 
     # Define plot dimensions
     nrows = 3

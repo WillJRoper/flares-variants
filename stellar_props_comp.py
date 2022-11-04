@@ -41,8 +41,8 @@ def plot_birth_density_evo():
               "InstantFB", "$Z^0$", "$M_\dot=0$",
               "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
               "$f_{\mathrm{th, max}}=4$",
-              "$z_{\mathrm{reion}}=3.0$", "$z_{\mathrm{reion}}=7.5$",
-              "$z_{\mathrm{reion}}=14.0$"]
+              "$z_{r, 0}$", "$z_{r, 7.5}$",
+              "$z_{r, 14}$"]
     labels = labels[::-1]
 
     # Define linestyles
@@ -117,8 +117,8 @@ def plot_birth_met_evo():
               "InstantFB", "$Z^0$", "$M_\dot=0$",
               "$f_{\mathrm{th, max}}=10$", "$f_{\mathrm{th, max}}=6$",
               "$f_{\mathrm{th, max}}=4$",
-              "$z_{\mathrm{reion}}=3.0$", "$z_{\mathrm{reion}}=7.5$",
-              "$z_{\mathrm{reion}}=14.0$"]
+              "$z_{r, 0}$", "$z_{r, 7.5}$",
+              "$z_{r, 14}$"]
     labels = labels[::-1]
 
     # Define linestyles

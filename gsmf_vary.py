@@ -35,8 +35,9 @@ def plot_gsmf_vary(snap):
     # Define labels for each
     labels = ["AGNdT9", "REF", "$f_{\mathrm{th, max}}=10$",
               "$f_{\mathrm{th, max}}=6$", "$f_{\mathrm{th, max}}=4$",
-              "InstantFB", "$Z^0$", "$M_\dot=0$", "$z_{\mathrm{reion}}=3.0$",
-              "$z_{\mathrm{reion}}=7.5$", "$z_{\mathrm{reion}}=14.0$"]
+              "InstantFB", "$Z^0$", "$M_\dot=0$",
+              "$z_{r, 0}$", "$z_{r, 7.5}$",
+              "$z_{r, 14}$"]
 
     # Define linestyles
     linestyles = ["-", "-", "--", "--", "--", "dotted", "dotted", "dotted",
