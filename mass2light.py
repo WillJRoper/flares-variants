@@ -15,6 +15,10 @@ from scipy.spatial import cKDTree
 import cmasher as cmr
 
 
+# Turn on grid
+mpl.rcParams.update({"axes.grid": True})
+
+
 def plot_mass2light_vary(snap):
 
     # Define the path

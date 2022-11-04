@@ -15,6 +15,10 @@ from scipy.spatial import cKDTree
 import cmasher as cmr
 
 
+# Turn on grid
+mpl.rcParams.update({"axes.grid": True})
+
+
 def plot_hmr_phys_comp(snap):
 
     mass_bins = np.logspace(7.5, 11.5, 30)
