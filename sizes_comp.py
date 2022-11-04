@@ -780,7 +780,7 @@ def plot_stellar_size_mass_evo_vary():
                   "dashdot", "dashdot", "dashdot"]
 
     # Define snapshots
-    snaps = ["007_z008p000", "008_z007p000",
+    snaps = ["009_z006p000", "007_z008p000", "008_z007p000",
              "009_z006p000", "010_z005p000"]
 
     # Define plot dimensions
@@ -841,16 +841,19 @@ def plot_stellar_size_mass_evo_vary():
             print(path)
 
             # Get the arrays from the raw data files
-            hmr = eagle_io.read_array('SUBFIND', path.replace("<type>", t),
-                                      snap,
-                                      'Subhalo/HalfMassRad',
-                                      noH=True, physicalUnits=True,
-                                      numThreads=8)[:, 4] * 1000
-            mass = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
-                                       snap,
-                                       "Subhalo/ApertureMeasurements/Mass/030kpc",
-                                       noH=True, physicalUnits=True,
-                                       numThreads=8)[:, 4] * 10 ** 10
+            try:
+                hmr = eagle_io.read_array('SUBFIND', path.replace("<type>", t),
+                                          snap,
+                                          'Subhalo/HalfMassRad',
+                                          noH=True, physicalUnits=True,
+                                          numThreads=8)[:, 4] * 1000
+                mass = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
+                                           snap,
+                                           "Subhalo/ApertureMeasurements/Mass/030kpc",
+                                           noH=True, physicalUnits=True,
+                                           numThreads=8)[:, 4] * 10 ** 10
+            except ValueError:
+                continue
 
             okinds = mass > 10 ** 8
 
@@ -900,7 +903,7 @@ def plot_gas_size_mass_evo_vary():
                   "dashdot", "dashdot", "dashdot"]
 
     # Define snapshots
-    snaps = ["007_z008p000", "008_z007p000",
+    snaps = ["009_z006p000", "007_z008p000", "008_z007p000",
              "009_z006p000", "010_z005p000"]
 
     # Define plot dimensions
@@ -961,16 +964,19 @@ def plot_gas_size_mass_evo_vary():
             print(path)
 
             # Get the arrays from the raw data files
-            hmr = eagle_io.read_array('SUBFIND', path.replace("<type>", t),
-                                      snap,
-                                      'Subhalo/HalfMassRad',
-                                      noH=True, physicalUnits=True,
-                                      numThreads=8)[:, 0] * 1000
-            mass = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
-                                       snap,
-                                       "Subhalo/ApertureMeasurements/Mass/030kpc",
-                                       noH=True, physicalUnits=True,
-                                       numThreads=8)[:, 4] * 10 ** 10
+            try:
+                hmr = eagle_io.read_array('SUBFIND', path.replace("<type>", t),
+                                          snap,
+                                          'Subhalo/HalfMassRad',
+                                          noH=True, physicalUnits=True,
+                                          numThreads=8)[:, 0] * 1000
+                mass = eagle_io.read_array("SUBFIND", path.replace("<type>", t),
+                                           snap,
+                                           "Subhalo/ApertureMeasurements/Mass/030kpc",
+                                           noH=True, physicalUnits=True,
+                                           numThreads=8)[:, 4] * 10 ** 10
+            except ValueError:
+                continue
 
             okinds = mass > 10 ** 8
 
