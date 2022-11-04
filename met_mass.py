@@ -620,7 +620,7 @@ def plot_stellarmet_mass_relation_evo_vary():
 
     # Save figure
     mkdir("plots/massmet/")
-    fig.savefig("plots/massmet/mass_stellar_metallicity_evo.png" % snap,
+    fig.savefig("plots/massmet/mass_stellar_metallicity_evo.png",
                 bbox_inches="tight")
 
 
@@ -821,7 +821,7 @@ def plot_gasmet_mass_relation_evo_vary():
 
     # Save figure
     mkdir("plots/massmet/")
-    fig.savefig("plots/massmet/mass_gas_metallicity_evo.png" % snap,
+    fig.savefig("plots/massmet/mass_gas_metallicity_evo.png",
                 bbox_inches="tight")
 
 
