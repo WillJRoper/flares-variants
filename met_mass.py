@@ -199,6 +199,9 @@ def plot_stellarmet_mass_relation_vary(snap):
             ms.append(m)
             mets.append(this_ini_mass * this_part_mets / np.sum(this_ini_mass))
 
+        # Convert to arrays and get mask
+        mets = np.array(mets)
+        ms = np.array(ms)
         okinds = mets > 0
 
         im = axes[ind].hexbin(ms[okinds], mets[okinds], mincnt=1, gridsize=50,
