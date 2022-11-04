@@ -362,7 +362,7 @@ def plot_ssfr_mass_vary(snap):
                  bbox_inches="tight")
 
 
-def plot_stellarmet_mass_relation_evo_vary():
+def plot_ssfr_mass_evo_vary():
 
     # Define binning
     mass_bins = np.logspace(8.0, 13, 30)
@@ -809,6 +809,6 @@ def plot_sfr_func_vary():
 
 if __name__ == "__main__":
     snap = "010_z005p000"
-    plot_stellarmet_mass_relation_evo_vary()
+    plot_ssfr_mass_evo_vary()
     plot_sfr_evo_comp(snap)
     plot_ssfr_mass_vary(snap)

@@ -11,6 +11,14 @@ from scipy.spatial.distance import cdist
 import eagle_IO.eagle_IO as eagle_io
 
 
+def mass_bins():
+    massBinLimits = np.linspace(7.95, 13.35, 28)
+    massBins = np.logspace(8.05, 13.25, 27)
+    # massBinLimits = np.linspace(6.85, 13.45, 23)
+    # massBins = np.logspace(7.0, 13.3, 22)
+    return massBins, massBinLimits
+
+
 def calc_ages(z, a_born):
     # Convert scale factor into redshift
     z_born = 1 / a_born - 1
