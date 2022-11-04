@@ -213,6 +213,6 @@ def plot_gsmf_evo_vary():
                    fancybox=True, ncol=3)
 
     # Save figure
-    mkdir("plots/sizes/")
-    fig.savefig("plots/sizes/gas_size_mass_evo.png",
+    mkdir("plots/gsmf/")
+    fig.savefig("plots/gsmf/gsmf`.png",
                 bbox_inches="tight")
