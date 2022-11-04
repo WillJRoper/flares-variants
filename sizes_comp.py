@@ -915,7 +915,7 @@ def plot_gas_size_mass_evo_vary():
     norm = LogNorm(vmin=1, vmax=10)
 
     # Define hexbin extent
-    extent = [8, 11.5, -1.3, 1.5]
+    extent = [8, 11.5, 0, 2]
 
     # Set up the plots
     fig = plt.figure(figsize=(ncols * 3.5, nrows * 3.5))
