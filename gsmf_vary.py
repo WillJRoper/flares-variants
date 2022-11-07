@@ -113,9 +113,6 @@ def plot_gsmf_evo_vary():
     # Define norm
     norm = LogNorm(vmin=1, vmax=10)
 
-    # Define hexbin extent
-    extent = [8, 11.5, 0, 2]
-
     # Set up the plots
     fig = plt.figure(figsize=(ncols * 2.5, nrows * 2.5))
     gs = gridspec.GridSpec(nrows=nrows, ncols=ncols + 1,
@@ -144,9 +141,9 @@ def plot_gsmf_evo_vary():
             ax.tick_params("y", left=False, right=False,
                            labelleft=False, labelright=False)
 
-        # Set axis limits
-        ax.set_ylim(10**extent[2], 10**extent[3])
-        ax.set_xlim(10**extent[0], 10**extent[1])
+        # # Set axis limits
+        # ax.set_ylim(10**extent[2], 10**extent[3])
+        # ax.set_xlim(10**extent[0], 10**extent[1])
 
         # Label axis
         ax.text(0.95, 0.9, "$z=$%d" % z,
