@@ -24,7 +24,7 @@ import fitDF.analyse as analyse
 mpl.rcParams.update({"axes.grid": True})
 
 
-def plot_df(self, ax, phi, phi_sigma, hist, massBins,
+def plot_df(ax, phi, phi_sigma, hist, massBins,
             label, hist_lim=10, lw=3, alpha=0.7, lines=True):
 
     kwargs = {}
@@ -202,7 +202,7 @@ def plot_gsmf_evo_vary():
             #     c = next(ax._get_lines.prop_cycler)['color']
 
             plot_df(ax, phi_all, phi_sigma, hist_all,
-                    massBins=massBins, color=None, lines=linestyles[ind], label=l)
+                    massBins=massBins, lines=linestyles[ind], label=l)
             # model.update_params(a.median_fit)
 
             # xvals = np.linspace(7, 15, 1000)
