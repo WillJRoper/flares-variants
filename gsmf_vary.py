@@ -25,7 +25,7 @@ mpl.rcParams.update({"axes.grid": True})
 
 
 def plot_df(self, ax, phi, phi_sigma, hist, massBins,
-            label, color, hist_lim=10, lw=3, alpha=0.7, lines=True):
+            label, hist_lim=10, lw=3, alpha=0.7, lines=True):
 
     kwargs = {}
     kwargs_lo = {}
