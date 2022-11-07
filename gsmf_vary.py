@@ -89,6 +89,7 @@ def plot_gsmf_evo_vary():
              "FLARES_00_medFBlim", "FLARES_00_slightFBlim",
              "flares_00_H_reion_z03",
              "flares_00_H_reion_z075", "flares_00_H_reion_z14"]
+    types = types[::-1]
 
     # Define labels for each
     labels = ["AGNdT9", "REF",
@@ -97,13 +98,15 @@ def plot_gsmf_evo_vary():
               "$f_{\mathrm{th, max}}=4$",
               "$z_{r, 0}$", "$z_{r, 7.5}$",
               "$z_{r, 14}$"]
+    labels = labels[::-1]
 
     # Define linestyles
     linestyles = ["-", "-", "--", "--", "--", "dotted", "dotted", "dotted",
                   "dashdot", "dashdot", "dashdot"]
+    linestyles = linestyles[::-1]
 
     # Define snapshots
-    snaps = ["009_z006p000", "007_z008p000", "008_z007p000",
+    snaps = ["006_z009p000", "007_z008p000", "008_z007p000",
              "009_z006p000", "010_z005p000"]
 
     # Define plot dimensions
@@ -128,13 +131,13 @@ def plot_gsmf_evo_vary():
 
         # Create axis
         ax = fig.add_subplot(gs[j])
+        ax.loglog()
 
         # Include labels
         if j == 0:
             ax.set_ylabel(
-                '$\mathrm{log_{10}}\,(\phi \,/\, \mathrm{Mpc^{-3}} \, \mathrm{dex^{-1}})$')
-        ax.set_xlabel(
-            '$\mathrm{log_{10}} \, (M_{*} \,/\, \mathrm{M_{\odot}})$')
+                '$\phi \,/\, \mathrm{Mpc^{-3}} \, \mathrm{dex^{-1}}$')
+        ax.set_xlabel('$M_\star / \mathrm{M}_{\odot}$')
 
         # Remove unnecessary ticks
         if j > 0:
@@ -198,8 +201,27 @@ def plot_gsmf_evo_vary():
             # if 'color' in ax._get_lines._prop_keys:
             #     c = next(ax._get_lines.prop_cycler)['color']
 
-            plot_df(ax, phi_all, phi_sigma, hist_all,
-                    massBins=massBins, lines=linestyles[ind], label=l)
+            def yerr(phi, phi_sigma):
+
+                p = phi
+                ps = phi_sigma
+
+                mask = (ps == p)
+
+                err_up = np.abs(p - p + ps)
+                err_lo = np.abs(p - p - ps)
+
+                err_lo[mask] = 100
+
+                return err_up, err_lo, mask
+
+            err_up, err_lo, mask = yerr(phi, phi_sigma)
+
+            ax.errorbar(massBins[phi > 0.],
+                        phi[phi > 0.],
+                        yerr=[err_lo[phi > 0.],
+                              err_up[phi > 0.]],
+                        label=l, alpha=1.0, linestyle=linestyles[ind])
             # model.update_params(a.median_fit)
 
             # xvals = np.linspace(7, 15, 1000)
@@ -208,7 +230,7 @@ def plot_gsmf_evo_vary():
     # Draw legend
     axes[2].legend(loc='upper center',
                    bbox_to_anchor=(0.5, -0.2),
-                   fancybox=True, ncol=3)
+                   fancybox=True, nrow=2)
 
     # Save figure
     mkdir("plots/gsmf/")
