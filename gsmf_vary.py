@@ -68,7 +68,7 @@ def plot_df(self, ax, phi, phi_sigma, hist, massBins,
                 yerr=[err_lo[phi > 0.],
                       err_up[phi > 0.]],
                 # uplims=(mask[phi > 0.]),
-                label=label, color=color, alpha=alpha, **kwargs)
+                label=label, alpha=alpha, **kwargs)
 
 
 def plot_gsmf_evo_vary():
@@ -192,21 +192,21 @@ def plot_gsmf_evo_vary():
 
             phi_sigma = np.sqrt(np.sum(np.square(phi_sigma), axis=0))
 
-            # ---- Get fit
-            sample_ID = 'flares_gsmf_%s' % (tag)
+            # # ---- Get fit
+            # sample_ID = 'flares_gsmf_%s' % (tag)
 
-            a = analyse.analyse(ID='samples', model=model,
-                                sample_save_ID=None, verbose=False)
+            # a = analyse.analyse(ID='samples', model=model,
+            #                     sample_save_ID=None, verbose=False)
 
-            if 'color' in ax._get_lines._prop_keys:
-                c = next(ax._get_lines.prop_cycler)['color']
+            # if 'color' in ax._get_lines._prop_keys:
+            #     c = next(ax._get_lines.prop_cycler)['color']
 
             plot_df(ax, phi_all, phi_sigma, hist_all,
-                    massBins=massBins, color=c, lines=False, label=l, lw=5)
-            model.update_params(a.median_fit)
+                    massBins=massBins, color=None, lines=linestyles[ind], label=l)
+            # model.update_params(a.median_fit)
 
-            xvals = np.linspace(7, 15, 1000)
-            ax.plot(xvals, a.model.log10phi(xvals), color=c, label=l)
+            # xvals = np.linspace(7, 15, 1000)
+            # ax.plot(xvals, a.model.log10phi(xvals), color=c, label=l)
 
     # Draw legend
     axes[2].legend(loc='upper center',
