@@ -230,7 +230,7 @@ def plot_gsmf_evo_vary():
     # Draw legend
     axes[2].legend(loc='upper center',
                    bbox_to_anchor=(0.5, -0.2),
-                   fancybox=True, ncols=5)
+                   fancybox=True, ncol=5)
 
     # Save figure
     mkdir("plots/gsmf/")
